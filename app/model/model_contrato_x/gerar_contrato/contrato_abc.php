@@ -86,11 +86,11 @@ $contrato_abc = '
             <header>
                 <div class="linha-superior">
                     <div class="coluna coluna-esquerda"><strong>ABC foto e video</strong></div>
-                    <div class="coluna coluna-centro">Contrato de Prestação de Serviços</div>
+                    <div class="coluna coluna-centro"><strong>Contrato de Prestação de Serviços</strong></div>
                     <div class="coluna coluna-direita page-number"></div>
                 </div>
-                <div class="linha-centralizada"><strong>SERVIÇO</strong></div>
-                <div class="linha-centralizada">funcionário</div>
+                <div class="linha-centralizada"><strong>de Fotografia e filmagem</strong></div>
+                <div class="linha-centralizada">Casamento Debutante Aniversário</div>
             </header>
 
             <footer>
