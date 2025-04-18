@@ -1,0 +1,27 @@
+<?php
+// Listar cadastros
+require_once('../app/model/model_cadastro/listar_cadastros/listar_cadastros.php');
+
+
+
+class CtrlCadastro {
+    private $listarCadastros;
+    private $listarPedidos;
+
+    public function __construct() {
+        $this->listarCadastros = new ListarCadastros();
+    }
+
+    public function exibirCadastros() {
+        $cadastros = $this->listarCadastros->buscarCadastros(); 
+        return $cadastros;   
+    }
+
+    public function exibirPedidos() {
+        $pedidos = $this->listarPedidos->getTodosPedidos();
+    }
+
+    
+        
+    
+}

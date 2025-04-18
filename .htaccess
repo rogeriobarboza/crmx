@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
+
+# Para impedir o acesso ao .htaccess e aumentar ainda mais a segurança do seu site, basta adicionar o seguinte código a ele mesmo:
+#order allow,deny
+#deny from all
+#satisfy all
