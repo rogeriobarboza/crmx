@@ -11,12 +11,17 @@ $options->set('isRemoteEnabled', true);
 $dompdf = new Dompdf($options);
 $dompdf->setPaper('A4', 'portrait');
 
+// INÍCIO CONTRATO ===================================
 // HTML do PDF (DomPDF)
-require_once '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php';
-$html = 
-    $contrato_abc
-;
-
+//require_once '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php';
+// Suas variáveis
+$nome = "João Silva";
+$data = date('d/m/Y');
+// Capturar o HTML gerado
+ob_start();
+require '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php'; // aqui ele executa o PHP dentro do modelo
+$html = ob_get_clean(); // aqui pega o conteúdo gerado 
+// FIM CONTRATO ===================================
 
 $dompdf->loadHtml($html);
 $dompdf->render();
