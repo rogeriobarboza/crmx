@@ -11,16 +11,18 @@ $options->set('isRemoteEnabled', true);
 $dompdf = new Dompdf($options);
 $dompdf->setPaper('A4', 'portrait');
 
-// INÍCIO CONTRATO ===================================
-// HTML do PDF (DomPDF)
-//require_once '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php';
-// Suas variáveis
+// HTML do PDF (DomPDF) - INÍCIO CONTRATO ===================================
+
+// Suas variáveis - PEGAR URL DO FORMULÁRIO e passar para VARIÁVEIS
+$teste = 'Teste HEREDOC - conteúdo da variavel para o PDF';
 $nome = "João Silva";
 $data = date('d/m/Y');
+$contrato_abc = 'contrato_abc.php';
 // Capturar o HTML gerado
-ob_start();
-require '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php'; // aqui ele executa o PHP dentro do modelo
-$html = ob_get_clean(); // aqui pega o conteúdo gerado 
+ob_start(); // Inserir o require aqui, entre ob_start() e ob_get_clean()
+require "../app/model/model_contrato_x/gerar_contrato/$contrato_abc"; // aqui ele executa o PHP dentro do modelo
+$ob_get = ob_get_clean();
+$html = $ob_get; // aqui pega o conteúdo gerado 
 // FIM CONTRATO ===================================
 
 $dompdf->loadHtml($html);

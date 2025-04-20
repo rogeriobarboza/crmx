@@ -1,6 +1,3 @@
-<?php
-$teste = 'Teste HEREDOC - conteúdo da variavel para o PDF';
-?>   
    <html>
         <head>
             <style>
@@ -112,7 +109,7 @@ Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telef
 
             <h1>Relatório de Cliente</h1>
             <p>Nome: <strong><?= $nome ?></strong></p>
-            <p>Data de geração: <strong><?= $data ?></strong></p><br><br
+            <p>Data de geração: <strong><?= $data ?></strong></p><br><br>
 
             <?= $teste ?>
 

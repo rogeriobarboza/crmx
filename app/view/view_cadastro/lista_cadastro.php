@@ -23,6 +23,7 @@ try {
         echo "<table border='1'>";
         echo "<thead>";
         echo "<tr>";
+        echo "<th>ID</th>";
         echo "<th>Nome</th>";
         echo "<th>Email</th>";
         echo "<th>Telefone</th>";
@@ -32,6 +33,7 @@ try {
         
         foreach ($cadastros as $cadastro) {
             echo "<tr>";
+            echo "<td>" . htmlspecialchars($cadastro['_id_cadastro']) . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['nome_completo']) . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['email']) . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['telefone']) . "</td>";
