@@ -24,6 +24,12 @@ class CtrlCadastro {
         return $cadastro;
     }
 
+
+    public function exibirDadosCompletosPorId($id) {
+        $cadastro = $this->listarCadastros->buscarDadosCompletosPorId($id); // <-- atenção aqui
+        return $cadastro;
+    }  
+
     public function exibirPedidos() {
         $pedidos = $this->listarPedidos->getTodosPedidos();
     }

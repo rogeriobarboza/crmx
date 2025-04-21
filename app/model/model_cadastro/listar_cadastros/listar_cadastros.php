@@ -58,6 +58,31 @@ class ListarCadastros extends DbConn {
             return false;
         }
     }
+
+
+    public function buscarDadosCompletosPorId($id) {
+        try {
+            $conn = $this->connect();
+            
+            // Query para cadastros + empresas
+            $query = "SELECT empresas.*, cadastros.*, pedidos.*, transacoes.*
+                            FROM cadastros 
+                            INNER JOIN empresas ON cadastros._id_empresa = empresas._id
+                            LEFT JOIN pedidos ON pedidos._id_cadastro = cadastros._id_cadastro
+                            LEFT JOIN transacoes ON transacoes._id_pedido = pedidos._id_pedido
+                            WHERE cadastros._id_cadastro = :id;";
+    
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $res;
+            
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar dados completos: " . $e->getMessage());
+            return false;
+        }
+    }
  
     
 

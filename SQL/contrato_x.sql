@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 17/04/2025 às 15:50
+-- Tempo de geração: 20/04/2025 às 12:12
 -- Versão do servidor: 8.2.0
 -- Versão do PHP: 8.2.13
 
@@ -57,17 +57,18 @@ CREATE TABLE IF NOT EXISTS `cadastros` (
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `rg` (`rg`),
   KEY `_id_empresa` (`_id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `cadastros`
 --
 
 INSERT INTO `cadastros` (`timestamp`, `_id_empresa`, `_id_cadastro`, `tipo_cadastro`, `nome_completo`, `rg`, `cpf`, `data_nasc`, `naturalidade`, `profissao`, `cep`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `telefone`, `email`, `redes_sociais`, `contato_recados`, `telefone_recados`, `email_recados`, `origem`) VALUES
-('2025-04-14 20:14:46', 1, 1, 'cliente', 'Maria Silva Santos', '12.345.678-9', '123.456.789-01', '1990-05-15', 'São Paulo', 'Professora', '01234-567', 'Rua das Flores', '123', NULL, 'Centro', 'São Paulo', 'SP', '(11)99999-1111', 'maria@email.com', NULL, 'João Silva', '(11)99999-2222', 'joao@email.com', NULL),
+('2025-04-14 20:14:45', 1, 1, 'cliente', 'Maria Silva Santos', '12.345.678-9', '123.456.789-01', '1990-05-15', 'São Paulo', 'Professora', '01234-567', 'Rua das Flores', '123', NULL, 'Centro', 'São Paulo', 'SP', '(11)99999-1111', 'maria@email.com', NULL, 'João Silva', '(11)99999-2222', 'joao@email.com', NULL),
 ('2025-04-14 20:14:46', 2, 2, 'cliente', 'José Santos Silva', '98.765.432-1', '987.654.321-02', '1985-06-20', 'Rio de Janeiro', 'Engenheiro', '12345-678', 'Av Brasil', '456', NULL, 'Jardins', 'São Paulo', 'SP', '(11)99999-3333', 'jose@email.com', NULL, 'Ana Santos', '(11)99999-4444', 'ana@email.com', NULL),
 ('2025-04-16 13:40:48', 2, 3, 'cliente', 'ROGERIO MORAIS BARBOZA', '347101628', '30329490842', '1981-12-18', 'Santo André', 'Fotografo', '09195-740', 'Travessa Soledade', '19', '0', 'Vila Pires', 'Santo André', 'SP', '11971872119', 'roger.msms@gmail.com', '@abcfotoevideo', 'Adriana Morais', '11-97014-5670', 'testeadriana@mail.com', 'teste'),
-('2025-04-16 18:23:57', 1, 4, 'colaborador', 'Tião Cagão', '241554882', '3012957824', '2001-01-01', 'Paraiba', 'Pedreiro', '09135490', 'Rua dos Maristas', '64', 'c2', 'Jardim Santo André', 'Santo André', 'SP', '11971872119', 'teste2@mail.com', '@teste2', 'ROGERIO MORAIS BARBOZA', '11971872119', 'roger.msms@gmail.com', 'teste2');
+('2025-04-16 18:23:57', 1, 4, 'colaborador', 'Tião Cagão', '241554882', '3012957824', '2001-01-01', 'Paraiba', 'Pedreiro', '09135490', 'Rua dos Maristas', '64', 'c2', 'Jardim Santo André', 'Santo André', 'SP', '11971872119', 'teste2@mail.com', '@teste2', 'ROGERIO MORAIS BARBOZA', '11971872119', 'roger.msms@gmail.com', 'teste2'),
+('2025-04-19 22:17:55', 1, 5, 'colaborador', 'Daniel Fernandes', '54810902x', '20256498952', '1999-01-18', 'São Paulo', 'Cinegrafista', '02165789', 'Rua Bera', '24', '02', 'Jd. Paulo', 'São Paulo', 'SP', '1196565-4242', 'daniel@mail.com', '@daniel', 'teste recados', '11 98877-6655', 'recadodaniel@email.com', 'teste teste');
 
 -- --------------------------------------------------------
 
@@ -136,6 +137,29 @@ INSERT INTO `pedidos` (`timestamp`, `_id_cadastro`, `_id_pedido`, `nome_contrata
 ('2025-04-14 20:14:46', 2, 2, 'José Santos Silva', 'Assessoria Completa', 'debutante', '15 Anos Ana', '2024-08-20', 'Organização completa', NULL, NULL, 150, '19:00:00', '20:00:00', 8000.00, 0.00, 7500.00, 'cartao', 12, '2024-04-01', 10, NULL, NULL),
 ('2025-04-16 19:19:29', 2, 3, 'José Santos Silva', 'Cobertura fotográfica', 'aniversario', '1 ano Pedrinho', '2025-05-18', 'Exemplo descrição do pedido', 'Papai, mamãe e vovó', 'Cuidado! Acriança não gosta de flash.', 50, '16:00:00', '16:30:00', 500.00, 100.00, 400.00, 'pix', 3, '2025-04-16', 16, '1 foto: Franco filho', 300.00);
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `transacoes`
+--
+
+DROP TABLE IF EXISTS `transacoes`;
+CREATE TABLE IF NOT EXISTS `transacoes` (
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `_id_transacao` int NOT NULL AUTO_INCREMENT,
+  `data_venc` date NOT NULL,
+  `transacao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `realizar` enum('sim','nao') COLLATE utf8mb4_unicode_ci DEFAULT 'nao',
+  `data_transacao` date DEFAULT NULL,
+  `num_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `valor_pgto` decimal(10,2) DEFAULT NULL,
+  `metodo_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `_id_pedido` int DEFAULT NULL,
+  `info_adicional` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`_id_transacao`),
+  KEY `_id_pedido` (`_id_pedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Restrições para tabelas despejadas
 --
@@ -151,6 +175,12 @@ ALTER TABLE `cadastros`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`_id_cadastro`) REFERENCES `cadastros` (`_id_cadastro`) ON DELETE RESTRICT;
+
+--
+-- Restrições para tabelas `transacoes`
+--
+ALTER TABLE `transacoes`
+  ADD CONSTRAINT `transacoes_ibfk_1` FOREIGN KEY (`_id_pedido`) REFERENCES `pedidos` (`_id_pedido`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

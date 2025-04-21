@@ -47,6 +47,12 @@ switch ($url) {
         require_once '../app/model/model_contrato_x/gerar_contrato/gerar_pdf.php';
         break;
 
+    case 'form-contrato':
+        echo "<a href='home'>Voltar para a Home</a><br><br>";
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/view_contratox/form_contrato.php';
+        break;
+
     default:
         // Página não encontrada
         //header("HTTP/1.0 404 Not Found");
