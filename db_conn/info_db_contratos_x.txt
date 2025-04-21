@@ -1,61 +1,79 @@
 Tabelas e Colunas do banco de dados "contratos_x
 
-Colunas da tabela cadastros:
+C:\wamp64\www\projetos\contrato_x\db_conn\dbConn.php:51:
+array (size=4)
 
-timestamp
-_id_empresa
-_id_cadastro
-tipo_cadastro
-nome_completo
-rg
-cpf
-data_nasc
-naturalidade
-profissao
-cep
-rua
-numero
-complemento
-bairro
-cidade
-estado
-telefone
-email
-redes_sociais
-contato_recados
-telefone_recados
-email_recados
-origem
+  'empresas' => 
+    array (size=3)
+      0 => string 'timestamp' (length=9)
+      1 => string '_id' (length=3)
+      2 => string 'empresa' (length=7)
 
 
-Colunas da tabela "empresas":
-timestamp
-_id
-empresa
+  'cadastros' => 
+    array (size=24)
+      0 => string 'timestamp' (length=9)
+      1 => string '_id_empresa' (length=11)
+      2 => string '_id_cadastro' (length=12)
+      3 => string 'tipo_cadastro' (length=13)
+      4 => string 'nome_completo' (length=13)
+      5 => string 'rg' (length=2)
+      6 => string 'cpf' (length=3)
+      7 => string 'data_nasc' (length=9)
+      8 => string 'naturalidade' (length=12)
+      9 => string 'profissao' (length=9)
+      10 => string 'cep' (length=3)
+      11 => string 'rua' (length=3)
+      12 => string 'numero' (length=6)
+      13 => string 'complemento' (length=11)
+      14 => string 'bairro' (length=6)
+      15 => string 'cidade' (length=6)
+      16 => string 'estado' (length=6)
+      17 => string 'telefone' (length=8)
+      18 => string 'email' (length=5)
+      19 => string 'redes_sociais' (length=13)
+      20 => string 'contato_recados' (length=15)
+      21 => string 'telefone_recados' (length=16)
+      22 => string 'email_recados' (length=13)
+      23 => string 'origem' (length=6)
 
 
-Colunas da tabela "pedidos":
-
-timestamp
-_id_cadastro
-_id_pedido
-nome_contratante
-produto_servico
-seguimento
-titulo_evento
-data_reservada
-descricao_pedido
-participantes
-observacoes
-numero_convidados
-horario_convite
-horario_inicio
-valor_original
-valor_desconto
-valor_total
-forma_pagamento
-numero_pagamentos
-data_pagamento_1
-vencimento_mensal
-reserva_equipe
-estimativa_custo
+  'pedidos' => 
+    array (size=23)
+      0 => string 'timestamp' (length=9)
+      1 => string '_id_cadastro' (length=12)
+      2 => string '_id_pedido' (length=10)
+      3 => string 'nome_contratante' (length=16)
+      4 => string 'produto_servico' (length=15)
+      5 => string 'seguimento' (length=10)
+      6 => string 'titulo_evento' (length=13)
+      7 => string 'data_reservada' (length=14)
+      8 => string 'descricao_pedido' (length=16)
+      9 => string 'participantes' (length=13)
+      10 => string 'observacoes' (length=11)
+      11 => string 'numero_convidados' (length=17)
+      12 => string 'horario_convite' (length=15)
+      13 => string 'horario_inicio' (length=14)
+      14 => string 'valor_original' (length=14)
+      15 => string 'valor_desconto' (length=14)
+      16 => string 'valor_total' (length=11)
+      17 => string 'forma_pagamento' (length=15)
+      18 => string 'numero_pagamentos' (length=17)
+      19 => string 'data_pagamento_1' (length=16)
+      20 => string 'vencimento_mensal' (length=17)
+      21 => string 'reserva_equipe' (length=14)
+      22 => string 'estimativa_custo' (length=16)
+      
+  'transacoes' => 
+    array (size=11)
+      0 => string 'timestamp' (length=9)
+      1 => string '_id_transacao' (length=13)
+      2 => string 'data_venc' (length=9)
+      3 => string 'transacao' (length=9)
+      4 => string 'realizar' (length=8)
+      5 => string 'data_transacao' (length=14)
+      6 => string 'num_pgto' (length=8)
+      7 => string 'valor_pgto' (length=10)
+      8 => string 'metodo_pgto' (length=11)
+      9 => string '_id_pedido' (length=10)
+      10 => string 'info_adicional' (length=14)

@@ -1,0 +1,13 @@
+Tabela 'transacoes'
+
+'timestamp'
+'_id_transacao'
+'data_venc' ok
+'transacao'
+'realizar'
+'data_transacao' 
+'num_pgto'
+'valor_pgto'
+'metodo_pgto'
+'_id_pedido'
+'info_adicional'

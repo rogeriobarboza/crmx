@@ -22,7 +22,7 @@ class DbConn {
         return $this->conn;
     }
 
-/*
+/* */
     public function getTablesAndColumns() {
         $tablesAndColumns = [];
 
@@ -41,6 +41,11 @@ class DbConn {
 
         return $tablesAndColumns;
     }
-*/
+
 
 }
+
+//$infoDb = new DbConn();
+//$infoDb->connect();
+//$infoTabelas = $infoDb->getTablesAndColumns();
+//var_dump($infoTabelas);
