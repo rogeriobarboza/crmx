@@ -2,13 +2,13 @@
 
 require_once('../db_conn/dbConn.php');
 
-class ListarCadastros extends DbConn {
+class ListarContatos extends DbConn {
 
-    public function buscarCadastros() {
+    public function buscarContatos() {
         try {
             $conn = $this->connect();
             
-            $query = "SELECT * FROM cadastros ORDER BY timestamp ASC";
+            $query = "SELECT * FROM contatos ORDER BY timestamp ASC";
 
             $stmt = $conn->prepare($query);
             $stmt->execute();
@@ -16,16 +16,16 @@ class ListarCadastros extends DbConn {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
             
         } catch (PDOException $e) {
-            error_log("Erro ao buscar cadastros: " . $e->getMessage());
+            error_log("Erro ao buscar contatos: " . $e->getMessage());
             return false;
         }
     }
 
-    public function buscarCadastroPorId($id) {
+    public function buscarContatoPorId($id) {
         try {
             $conn = $this->connect();
             
-            $query = "SELECT * FROM cadastros WHERE _id_cadastro = :id";
+            $query = "SELECT * FROM contatos WHERE cpf:id";
                      
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -39,16 +39,17 @@ class ListarCadastros extends DbConn {
         }
     }
 
-    public function buscarCadastroPorNome($nome) {
+    public function buscarContatoPorCPF($cpf) {
         try {
             $conn = $this->connect();
             
-            $query = "SELECT _id_empresa, _id_cadastro, tipo_cadastro, nome_completo, telefone, email 
-                     FROM cadastros 
-                     WHERE nome_completo LIKE :nome";
+            $query = "SELECT empresas.*, contatos.*
+            FROM contatos 
+            INNER JOIN empresas ON contatos._id_empresa = empresas._id
+            WHERE contatos.cpf = :cpf;";
                      
             $stmt = $conn->prepare($query);
-            $stmt->bindValue(':nome', '%' . $nome . '%', PDO::PARAM_STR);
+            $stmt->bindParam(':cpf', $cpf, PDO::PARAM_STR);
             $stmt->execute();
             
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,20 +61,18 @@ class ListarCadastros extends DbConn {
     }
 
 
-    public function buscarDadosCompletosPorId($id) {
+    public function buscarPedidoTransacaoPorId($_id_pedido) {
         try {
             $conn = $this->connect();
             
-            // Query para cadastros + empresas
-            $query = "SELECT empresas.*, cadastros.*, pedidos.*, transacoes.*
-                            FROM cadastros 
-                            INNER JOIN empresas ON cadastros._id_empresa = empresas._id
-                            LEFT JOIN pedidos ON pedidos._id_cadastro = cadastros._id_cadastro
-                            LEFT JOIN transacoes ON transacoes._id_pedido = pedidos._id_pedido
-                            WHERE cadastros._id_cadastro = :id;";
+            // Query para contatos + empresas
+            $query = "SELECT pedidos.*, transacoes.*
+                    FROM pedidos 
+                    LEFT JOIN transacoes ON transacoes._id_pedido = pedidos._id_pedido
+                    WHERE pedidos._id_pedido = :id_pedido;";
     
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_pedido', $_id_pedido, PDO::PARAM_INT);
             $stmt->execute();
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
             return $res;
@@ -86,4 +85,4 @@ class ListarCadastros extends DbConn {
  
     
 
-} // FIM DA CLASSE ListarCadastros
+} // FIM DA CLASSE Listarcontatos

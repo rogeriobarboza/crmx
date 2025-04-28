@@ -14,11 +14,11 @@
     <form action="app/controller/ctrl_pedido/ctrl_addPedido.php" method="POST">
         <h2>Pedido</h2>
 
-        <label for="_id_cadastro">ID Cadastro</label>
-        <input type="text" id="_id_cadastro" name="_id_cadastro" required><br><br>
+        <label for="_id_contato">ID Cadastro</label>
+        <input type="text" id="_id_contato" name="_id_contato" required><br><br>
 
-        <label for="nome_contratante">Nome do Contratante</label>
-        <input type="text" id="nome_contratante" name="nome_contratante" required><br><br>
+        <label for="nome_contato">Nome do Contratante</label>
+        <input type="text" id="nome_contato" name="nome_contato" required><br><br>
 
         <label for="produto_servico">Produto/Serviço</label>
         <input type="text" id="produto_servico" name="produto_servico" required><br><br>

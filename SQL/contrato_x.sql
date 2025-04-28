@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 20/04/2025 às 12:12
+-- Tempo de geração: 24/04/2025 às 17:24
 -- Versão do servidor: 8.2.0
 -- Versão do PHP: 8.2.13
 
@@ -96,6 +96,28 @@ INSERT INTO `empresas` (`timestamp`, `_id`, `empresa`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `pacotes`
+--
+
+DROP TABLE IF EXISTS `pacotes`;
+CREATE TABLE IF NOT EXISTS `pacotes` (
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `_id_pacote` int NOT NULL AUTO_INCREMENT,
+  `_id_empresa` int NOT NULL,
+  `nome_pacote` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `descr_pacote` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Descrição curta do pacote',
+  `detalhar_pacote` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT 'Detalhamento completo do pacote',
+  `_ids_produtos` varchar(255) DEFAULT NULL COMMENT 'IDs dos produtos separados por vírgula',
+  `custo_pacote` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `preco_pacote` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `status` enum('ativo','inativo') NOT NULL DEFAULT 'ativo',
+  PRIMARY KEY (`_id_pacote`),
+  KEY `_id_empresa` (`_id_empresa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `pedidos`
 --
 
@@ -140,6 +162,28 @@ INSERT INTO `pedidos` (`timestamp`, `_id_cadastro`, `_id_pedido`, `nome_contrata
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `produtos`
+--
+
+DROP TABLE IF EXISTS `produtos`;
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `_id_empresa` int NOT NULL,
+  `_id_produto` int NOT NULL AUTO_INCREMENT,
+  `categoria` varchar(50) NOT NULL,
+  `nome_produto` varchar(100) NOT NULL,
+  `descr_prod` varchar(255) NOT NULL,
+  `detalhar_prod` text,
+  `custo_prod` decimal(10,2) DEFAULT '0.00',
+  `preco_prod` decimal(10,2) NOT NULL,
+  `status` varchar(12) NOT NULL,
+  PRIMARY KEY (`_id_produto`),
+  KEY `_id_empresa` (`_id_empresa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `transacoes`
 --
 
@@ -149,16 +193,35 @@ CREATE TABLE IF NOT EXISTS `transacoes` (
   `_id_transacao` int NOT NULL AUTO_INCREMENT,
   `data_venc` date NOT NULL,
   `transacao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `realizar` enum('sim','nao') COLLATE utf8mb4_unicode_ci DEFAULT 'nao',
+  `situacao` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'A receber',
   `data_transacao` date DEFAULT NULL,
   `num_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `valor_pgto` decimal(10,2) DEFAULT NULL,
   `metodo_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `_id_pedido` int DEFAULT NULL,
+  `pedido` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cadastro` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contato` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `info_adicional` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`_id_transacao`),
   KEY `_id_pedido` (`_id_pedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `transacoes`
+--
+
+INSERT INTO `transacoes` (`timestamp`, `_id_transacao`, `data_venc`, `transacao`, `situacao`, `data_transacao`, `num_pgto`, `valor_pgto`, `metodo_pgto`, `_id_pedido`, `pedido`, `cadastro`, `contato`, `info_adicional`) VALUES
+('2025-04-20 12:19:14', 1, '2024-05-01', 'Receita', 'pago', '2024-05-01', '1/10', 1000.00, 'pix', 1, NULL, '', '', 'Entrada Casamento Maria e João'),
+('2025-04-20 12:19:14', 2, '2024-06-05', 'Parcela 2 Casamento Maria e João', 'a receber', NULL, '2/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
+('2025-04-20 12:19:14', 3, '2024-07-05', 'Parcela 3 Casamento Maria e João', 'pendente', NULL, '3/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
+('2025-04-20 12:19:14', 4, '2024-08-05', 'Parcela 4 Casamento Maria e João', 'a pagar', NULL, '4/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
+('2025-04-20 12:19:14', 5, '2024-04-01', 'Entrada 15 Anos Ana', 'sim', '2024-04-01', '1/12', 1500.00, 'cartao', 2, NULL, '', '', 'Entrada paga via maquininha'),
+('2025-04-20 12:19:14', 6, '2024-05-10', 'Parcela 2 15 Anos Ana', 'sim', '2024-05-09', '2/12', 545.45, 'cartao', 2, NULL, '', '', 'Pagamento antecipado'),
+('2025-04-20 12:19:14', 7, '2024-06-10', 'Parcela 3 15 Anos Ana', 'nao', NULL, '3/12', 545.45, 'cartao', 2, NULL, '', '', 'Aguardando vencimento'),
+('2025-04-20 12:19:14', 8, '2025-04-16', 'Entrada Aniversário Pedrinho', 'sim', '2025-04-16', '1/3', 200.00, 'pix', 3, NULL, '', '', 'Entrada quitada'),
+('2025-04-20 12:19:14', 9, '2025-05-16', 'Parcela 2 Aniversário Pedrinho', 'nao', NULL, '2/3', 100.00, 'pix', 3, NULL, '', '', 'Aguardando vencimento'),
+('2025-04-20 12:19:14', 10, '2025-06-16', 'Parcela 3 Aniversário Pedrinho', 'nao', NULL, '3/3', 100.00, 'pix', 3, NULL, '', '', 'Parcela final');
 
 --
 -- Restrições para tabelas despejadas
@@ -171,10 +234,22 @@ ALTER TABLE `cadastros`
   ADD CONSTRAINT `cadastros_ibfk_1` FOREIGN KEY (`_id_empresa`) REFERENCES `empresas` (`_id`) ON DELETE RESTRICT;
 
 --
+-- Restrições para tabelas `pacotes`
+--
+ALTER TABLE `pacotes`
+  ADD CONSTRAINT `pacotes_ibfk_1` FOREIGN KEY (`_id_empresa`) REFERENCES `empresas` (`_id`) ON DELETE RESTRICT;
+
+--
 -- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`_id_cadastro`) REFERENCES `cadastros` (`_id_cadastro`) ON DELETE RESTRICT;
+
+--
+-- Restrições para tabelas `produtos`
+--
+ALTER TABLE `produtos`
+  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`_id_empresa`) REFERENCES `empresas` (`_id`) ON DELETE RESTRICT;
 
 --
 -- Restrições para tabelas `transacoes`

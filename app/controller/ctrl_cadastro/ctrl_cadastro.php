@@ -1,32 +1,33 @@
 <?php
 // Listar cadastros
-require_once('../app/model/model_cadastro/listar_cadastros/listar_cadastros.php');
+require_once('../app/model/model_cadastro/listar_cadastros/listar_contatos.php');
 
 
 
 class CtrlCadastro {
-    private $listarCadastros;
+    private $ListarContatos;
     private $listarPedidos;
     public $id;
     private $listarNome;
+    private $_id_pedido;
 
     public function __construct() {
-        $this->listarCadastros = new ListarCadastros();
+        $this->ListarContatos = new ListarContatos();
     }
 
     public function exibirCadastros() {
-        $cadastros = $this->listarCadastros->buscarCadastros(); 
+        $cadastros = $this->ListarContatos->buscarContatos(); 
         return $cadastros;   
     }
 
-    public function exibirCadastroPorId($id) {
-        $cadastro = $this->listarCadastros->buscarCadastroPorId($id);
+    public function exibirCadastroPorCPF($cpf) {
+        $cadastro = $this->ListarContatos->buscarContatoPorCPF($cpf);
         return $cadastro;
     }
 
 
-    public function exibirDadosCompletosPorId($id) {
-        $cadastro = $this->listarCadastros->buscarDadosCompletosPorId($id); // <-- atenção aqui
+    public function exibirPedidoTransacaoPorId($_id_pedido) {
+        $cadastro = $this->ListarContatos->buscarPedidoTransacaoPorId($_id_pedido); // <-- atenção aqui
         return $cadastro;
     }  
 

@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/app/model/model_cadastro/inserir_cadastros/model_cadastrar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cadastrar = new Cadastrar();
+    $cadastrar = new CadastrarContato();
 
     /*
     // Validação do CPF

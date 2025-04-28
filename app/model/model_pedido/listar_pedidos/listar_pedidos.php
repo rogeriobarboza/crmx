@@ -1,6 +1,6 @@
 <?php
 
-require_once '../db_conn/dbConn.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/db_conn/dbConn.php';
 
 class ListarPedidos {
     private $conn;
@@ -19,15 +19,15 @@ class ListarPedidos {
             $sql = "SELECT 
                     _id_pedido,
                     titulo_evento,
-                    nome_contratante,
+                    nome_contato,
                     data_reservada
                     FROM pedidos 
                     ORDER BY data_reservada DESC";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
-            
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
             
         } catch (PDOException $e) {
             error_log("Erro ao listar pedidos: " . $e->getMessage());
@@ -45,7 +45,7 @@ class ListarPedidos {
             $sql = "SELECT 
                     _id_pedido,
                     titulo_evento,
-                    nome_contratante,
+                    nome_contato,
                     data_reservada
                     FROM pedidos 
                     WHERE titulo_evento LIKE :titulo
@@ -74,7 +74,7 @@ class ListarPedidos {
             $sql = "SELECT 
                     _id_pedido,
                     titulo_evento,
-                    nome_contratante,
+                    nome_contato,
                     data_reservada
                     FROM pedidos 
                     WHERE _id_pedido = :id";
@@ -91,3 +91,7 @@ class ListarPedidos {
         }
     }
 }
+
+//$teste = new ListarPedidos();
+//$pedidos = $teste->getTodosPedidos();
+//var_dump($pedidos); // Para teste, remova ou comente esta linha em produção

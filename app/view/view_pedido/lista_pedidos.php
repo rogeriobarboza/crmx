@@ -22,7 +22,7 @@ try {
         echo "<thead>";
         echo "<tr>";
         echo "<th>Título do Evento</th>";
-        echo "<th>Contratante</th>";
+        echo "<th>Contato</th>";
         echo "<th>Data Reservada</th>";
         echo "</tr>";
         echo "</thead>";
@@ -31,7 +31,7 @@ try {
         foreach ($pedidos as $pedido) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($pedido['titulo_evento']) . "</td>";
-            echo "<td>" . htmlspecialchars($pedido['nome_contratante']) . "</td>";
+            echo "<td>" . htmlspecialchars($pedido['nome_contato']) . "</td>";
             echo "<td>" . htmlspecialchars(date('d/m/Y', strtotime($pedido['data_reservada']))) . "</td>";
             echo "</tr>";
         }

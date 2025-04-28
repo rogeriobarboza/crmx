@@ -2,7 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/db_conn/dbConn.php';
 
-class Cadastrar {
+class CadastrarContato {
     private $conn;
 
     public function __construct() {
@@ -10,9 +10,9 @@ class Cadastrar {
         $this->conn = $db->connect();
     }
 
-    public function inserirCadastro(
+    public function inserirContato(
         $_id_empresa,
-        $tipo_cadastro,
+        $tipo_contato,
         $nome_completo,
         $rg,
         $cpf,
@@ -34,9 +34,9 @@ class Cadastrar {
         $email_recados,
         $origem) {
         try {
-            $sql = "INSERT INTO cadastros (
+            $sql = "INSERT INTO contatos (
                 _id_empresa,
-                tipo_cadastro,
+                tipo_contato,
                 nome_completo,
                 rg,
                 cpf,
@@ -59,7 +59,7 @@ class Cadastrar {
                 origem
             ) VALUES (
                 :_id_empresa,
-                :tipo_cadastro,
+                :tipo_contato,
                 :nome_completo,
                 :rg,
                 :cpf,
@@ -85,7 +85,7 @@ class Cadastrar {
             $stmt = $this->conn->prepare($sql);
 
             $stmt->bindValue(':_id_empresa', $_id_empresa);
-            $stmt->bindValue(':tipo_cadastro', $tipo_cadastro);
+            $stmt->bindValue(':tipo_contato', $tipo_contato);
             $stmt->bindValue(':nome_completo', $nome_completo);
             $stmt->bindValue(':rg', $rg);
             $stmt->bindValue(':cpf', $cpf);
@@ -110,15 +110,15 @@ class Cadastrar {
             $stmt->execute();
             return [
                 'success' => true,
-                'message' => 'Cadastro realizado com sucesso',
+                'message' => 'contato realizado com sucesso',
                 'id' => $this->conn->lastInsertId()
             ];
 
         } catch (PDOException $e) {
-            error_log("Erro ao inserir cadastro: " . $e->getMessage());
+            error_log("Erro ao inserir contato: " . $e->getMessage());
             return [
                 'success' => false,
-                'message' => 'Erro ao realizar cadastro',
+                'message' => 'Erro ao realizar contato',
                 'error' => $e->getMessage()
             ];
         }
@@ -154,7 +154,7 @@ class Cadastrar {
 
     public function verificarCPFExistente($cpf) {
         try {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM cadastros WHERE cpf = :cpf");
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM contatos WHERE cpf = :cpf");
             $stmt->bindValue(':cpf', $cpf);
             $stmt->execute();
             
