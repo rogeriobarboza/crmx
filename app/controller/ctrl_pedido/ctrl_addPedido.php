@@ -24,10 +24,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $valor_total = $_POST['valor_total'] ?? "Não informado";
     $forma_pagamento = $_POST['forma_pagamento'] ?? "Não informado";
     $numero_pagamentos = $_POST['numero_pagamentos'] ?? "Não informado";
+    $valor_pagamento_1 = $_POST['valor_pagamento_1'] ?? "Não informado";
     $data_pagamento_1 = $_POST['data_pagamento_1'] ?? "Não informado";
     $vencimento_mensal = $_POST['vencimento_mensal'] ?? "Não informado";
     $reserva_equipe = $_POST['reserva_equipe'] ?? "Não informado";
     $estimativa_custo = $_POST['estimativa_custo'] ?? "Não informado";
+    $info_adicional = $_POST['info_adicional'] ?? "Não informado";
 
     // Chama o método para inserir o pedido
 
@@ -49,6 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $valor_total,
         $forma_pagamento,
         $numero_pagamentos,
+        $valor_pagamento_1,
         $data_pagamento_1,
         $vencimento_mensal,
         $reserva_equipe,
@@ -58,37 +61,62 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 }
 
-$_id_contato; // ID do contato que está fazendo o pedido.
-
-// Preparar dados de TRANSAÇÃO "RECEITA" para inserção
-$venc_mensal = $vencimento_mensal;
-$transacao = "ENTRADA-teste1";
-$situacao = "A RECEBER";
-$num_pgto = 1; // Fazer a LÓGICA para calcular o número da parcela/pagamento (1, 2, 3...)
-$valor_pgto = 100; // valor da parcela
-$metodo_pgto = "pix"; // se PiX, Cartão, Boleto, etc...
-$_id_pedido = $addPedido->getIdPedido($_id_contato); // Recupera o ID do pedido inserido
-$pedido = "Casamento Maria e João, por exemplo"; // Titulo do pedido. Casamento Maria e João, por exemplo.
-$contato = "Contato referente ao pedido"; // Nome do cliente/contratante cadastrado. Maria da Silva, por exemplo.
-$metodos_contato = "telefone, email ou whatsapp"; // telefone, email ou whatsapp do cliente/contratante.
-$info_adicional = "Ex: Lembrar de fazer a foto na avenida"; // Informações adicionais sobre o pedido. Ex: "Lembrar de fazer a foto na avenida".
 
 
-$transacao = $addPedido->addTransacao(
-    $venc_mensal,
-    $transacao,
-    $situacao,
-    $num_pgto,
-    $valor_pgto,
-    $metodo_pgto,
-    $_id_pedido,
-    $pedido,
-    $contato,
-    $metodos_contato,
-    $info_adicional
-);
+// PREPARANDO DADOS PARA INSERÇÃO NA TABELA DE TRANSAÇÕES ==
 
-echo json_encode($transacao); // Retorna o ID da transação inserida
+// PARÂMETROS PARA INSERÇÃO NA TABELA DE TRANSAÇÕES == Preparar dados de TRANSAÇÃO "RECEITA" para inserção
+$_id_pedido = $addPedido->getIdPedido($_id_contato); // Ok - Recupera o ID do pedido inserido
+$_id_contato; // Ok - Ja capturado acima com metodo $_POST
+$venc_mensal; // Ok - Se entrada = 0, data do 1º vencimento ja capturado acima com metodo $_POST.
+$transacao = "RECEITA"; // Ok - Tipo de transação para cadastro de pedidos.
+$situacao = "A RECEBER"; // Ok - Situação da transação para cadastro de pedidos.
+$data_transacao; // É a data em que o pagamento foi realizado, ou seja, é preenchido somente quando o pagamento é feito. Se não for feito, fica em branco.
+$num_pgto; // Número do pagamento (entrada)
+$valor_pgto; // Valor do pagamento
+$metodo_pgto = $forma_pagamento; // Ok - Ja capturado acima com metodo $_POST
+$pedido = $titulo_evento; // Ok - Ja capturado acima com metodo $_POST
+$contato = $nome_contato; // Ok - Ja capturado acima com metodo $_POST
+// -----------------------------------------------------------------
+    $info_metodos_contato = $addPedido->metodosContato($_id_contato); // Ok - Recupera os métodos de contato do cliente/contratante.
+        $telefone = $info_metodos_contato['telefone'] ?? "Não informado"; // Ok - telefone do cliente/contratante.
+        $email = $info_metodos_contato['email'] ?? "Não informado"; // Ok - email do cliente/contratante.
+$metodos_contato = $telefone . ", ". $email; // Ok - telefone, email ou whatsapp do cliente/contratante.
+$info_adicional; // Ok - Ja capturado acima com metodo $_POST
+
+// Fazer a LÓGICA para definir o NÚMERO e VALOR do pagamento e INSERIR no DB
+if($valor_pagamento_1 > 0) {
+    $venc_mensal = $data_pagamento_1; // Data do primeiro pagamento (entrada)
+    $num_pgto = 1; // Número do pagamento (entrada)
+    $valor_pgto = $valor_pagamento_1; // Valor do pagamento (entrada)
+    // Chama o método para inserir a transação de entrada
+    $addPedido->addTransacao($_id_pedido,$_id_contato,$venc_mensal,$transacao,$situacao,$num_pgto,$valor_pgto,$metodo_pgto,$pedido,$contato,$metodos_contato,$info_adicional);
+    $parcelas = $numero_pagamentos - 1; // Número de pagamentos restantes (parcelas)
+    
+    while($num_pgto <= $parcelas) {
+        $venc_mensal = $vencimento_mensal . "teste venc. mensal"; // Data do vencimento mensal
+        $num_pgto++; // Incrementa o número do pagamento
+        $valor_pgto = ($valor_total - $valor_pagamento_1) / $parcelas; // Valor do pagamento
+        // Chama o método para inserir a transação de entrada
+        $addPedido->addTransacao($_id_pedido,$_id_contato,$venc_mensal,$transacao,$situacao,$num_pgto,$valor_pgto,$metodo_pgto,$pedido,$contato,$metodos_contato,$info_adicional);
+    }
+} elseif($valor_pagamento_1 == 0) {
+    $num_pgto = 0; // Número do pagamento (entrada)
+    
+    while($num_pgto < $numero_pagamentos) {
+        $venc_mensal = $vencimento_mensal . "teste venc. mensal"; // Data do vencimento mensal
+        $num_pgto++; // Incrementa o número do pagamento
+        $valor_pgto = $valor_total / $numero_pagamentos; // Valor do pagamento
+        // Chama o método para inserir a transação de entrada
+        $addPedido->addTransacao($_id_pedido,$_id_contato,$venc_mensal,$transacao,$situacao,$num_pgto,$valor_pgto,$metodo_pgto,$pedido,$contato,$metodos_contato,$info_adicional);
+    }
+
+    echo json_encode($transacao); // Retorna o ID da transação inserida
+
+} else {echo "Nenhuma entrada informada.";}
+
+
+
 
 
 ?>

@@ -28,6 +28,7 @@ class addPedido {
         $valor_total,
         $forma_pagamento,
         $numero_pagamentos,
+        $valor_pagamento_1,
         $data_pagamento_1,
         $vencimento_mensal,
         $reserva_equipe,
@@ -52,6 +53,7 @@ class addPedido {
                     valor_total,
                     forma_pagamento,
                     numero_pagamentos,
+                    valor_pagamento_1,
                     data_pagamento_1,
                     vencimento_mensal,
                     reserva_equipe,
@@ -73,7 +75,8 @@ class addPedido {
                     :valor_desconto, 
                     :valor_total, 
                     :forma_pagamento, 
-                    :numero_pagamentos, 
+                    :numero_pagamentos,
+                    :valor_pagamento_1, 
                     :data_pagamento_1, 
                     :vencimento_mensal, 
                     :reserva_equipe, 
@@ -99,6 +102,7 @@ class addPedido {
                 $stmt->bindParam(':valor_total', $valor_total);
                 $stmt->bindParam(':forma_pagamento', $forma_pagamento);
                 $stmt->bindParam(':numero_pagamentos', $numero_pagamentos);
+                $stmt->bindParam(':valor_pagamento_1', $valor_pagamento_1);
                 $stmt->bindParam(':data_pagamento_1', $data_pagamento_1);
                 $stmt->bindParam(':vencimento_mensal', $vencimento_mensal);
                 $stmt->bindParam(':reserva_equipe', $reserva_equipe);
@@ -119,14 +123,31 @@ class addPedido {
                       
     } // fim metodo addPedido
 
+
+    // Método para pegar o "id do pedido" após o cadastro do pedido
+    public function getIdPedido($_id_contato) {
+        
+        $queryIdPedido = "SELECT _id_pedido FROM pedidos WHERE _id_contato = $_id_contato ORDER BY timestamp DESC LIMIT 1";
+        $stmt = $this->conn->prepare($queryIdPedido);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $_id_pedido = $result['_id_pedido'];
+
+        return $_id_pedido;
+        
+    } // Fim metodo getIdPedido
+
+
+    // Método para inserir transação
     public function addTransacao(
+        $_id_pedido,
+        $_id_contato,
         $venc_mensal,
         $transacao,
         $situacao,
         $num_pgto,
         $valor_pgto,
         $metodo_pgto,
-        $_id_pedido,
         $pedido,
         $contato,
         $metodos_contato,
@@ -135,25 +156,27 @@ class addPedido {
             try {
                 // Inserir transação
                 $queryAddTransacao = "INSERT INTO transacoes (
+                    _id_pedido,
+                    _id_contato,
                     venc_mensal,
                     transacao,
                     situacao,
                     num_pgto,
                     valor_pgto,
                     metodo_pgto,
-                    _id_pedido,
                     pedido,
                     contato,
                     metodos_contato,
                     info_adicional)
                   VALUES (
+                    :_id_pedido,
+                    :_id_contato,
                     :venc_mensal,
                     :transacao,
                     :situacao,
                     :num_pgto,
                     :valor_pgto,
                     :metodo_pgto,
-                    :_id_pedido,
                     :pedido,
                     :contato,
                     :metodos_contato,
@@ -162,13 +185,14 @@ class addPedido {
                 $stmt = $this->conn->prepare($queryAddTransacao);
 
                 // Bind parameters
+                $stmt->bindParam(':_id_pedido', $_id_pedido);
+                $stmt->bindParam(':_id_contato', $_id_contato);
                 $stmt->bindParam(':venc_mensal', $venc_mensal);
                 $stmt->bindParam(':transacao', $transacao);
                 $stmt->bindParam(':situacao', $situacao);
                 $stmt->bindParam(':num_pgto', $num_pgto);
                 $stmt->bindParam(':valor_pgto', $valor_pgto);
                 $stmt->bindParam(':metodo_pgto', $metodo_pgto);
-                $stmt->bindParam(':_id_pedido', $_id_pedido);
                 $stmt->bindParam(':pedido', $pedido);
                 $stmt->bindParam(':contato', $contato);
                 $stmt->bindParam(':metodos_contato', $metodos_contato);
@@ -188,17 +212,17 @@ class addPedido {
             }
     } // fim metodo addTransacao
 
-    /* $queryIdPedido = "SELECT * FROM pedidos ORDER BY timestamp DESC LIMIT 1"; */
-    public function getIdPedido($_id_contato) {
-        
-        $queryIdPedido = "SELECT _id_pedido FROM pedidos WHERE _id_contato = $_id_contato ORDER BY timestamp DESC LIMIT 1";
-        $stmt = $this->conn->prepare($queryIdPedido);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $_id_pedido = $result['_id_pedido'];
 
-        return $_id_pedido;
+    public function metodosContato($_id_contato) {
+        // Lógica para buscar metodos de contato -------------
+        $info_contato = "SELECT telefone,email FROM contatos WHERE _id_contato = :_id_contato"; // buscar o contato por ID
+        $stmt = $this->conn->prepare($info_contato);
+        $stmt->bindParam(':_id_contato', $_id_contato, PDO::PARAM_INT);
+        $stmt->execute();
+        $contato_info = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $contato_info; // Retorna o contato encontrado
     }
+
 
 
 } // fim classe addPedido

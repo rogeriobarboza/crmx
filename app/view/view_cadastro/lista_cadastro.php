@@ -52,7 +52,7 @@ try {
         
         foreach ($cadastros as $cadastro) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($cadastro['_id_cadastro'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($cadastro['_id_contato'] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['_id_empresa'] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['tipo_cadastro'] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($cadastro['nome_completo'] ?? '') . "</td>";

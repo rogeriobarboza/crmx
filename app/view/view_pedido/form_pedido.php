@@ -75,20 +75,27 @@
             <option value="transferencia">Transferência</option>
         </select><br><br>
 
-        <label for="numero_pagamentos">Número de Pagamentos</label>
+        <label for="numero_pagamentos">Número de Pagamentos (entrada + parcelas)</label>
         <input type="number" id="numero_pagamentos" name="numero_pagamentos" required><br><br>
 
-        <label for="data_pagamento_1">Data do Primeiro Pagamento</label>
-        <input type="date" id="data_pagamento_1" name="data_pagamento_1" required><br><br>
+        <label for="valor_pagamento_1">Valor do Primeiro Pagamento (entrada)</label>
+        <input type="number" id="valor_pagamento_1" name="valor_pagamento_1" step="0.01" required><br><br>
 
-        <label for="vencimento_mensal">Vencimento Mensal</label>
-        <input type="number" id="vencimento_mensal" name="vencimento_mensal" min="1" max="31" required><br><br>
+        <label for="data_pagamento_1">Data do Primeiro Pagamento</label>
+        <input type="date" id="data_pagamento_1" name="data_pagamento_1"><br><br>
+
+        <label for="vencimento_mensal">Data do 1º Vencimento Mensal</label>
+        <input type="date" id="vencimento_mensal" name="vencimento_mensal" required><br><br>
 
         <label for="reserva_equipe">Reserva de Equipe</label>
         <textarea id="reserva_equipe" name="reserva_equipe" rows="4"></textarea><br><br>
 
         <label for="estimativa_custo">Estimativa de Custo</label>
         <input type="number" id="estimativa_custo" name="estimativa_custo" step="0.01"><br><br>
+
+        <label for="info_adicional">Informações Adicionais</label>
+        <input type="text" id="info_adicional" name="info_adicional"></label>
+
 
         <input type="submit" value="Cadastrar Pedido">
     </form>
