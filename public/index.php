@@ -29,16 +29,50 @@ switch ($url) {
         require_once '../app/view/view_cadastro/form_cadastro.php';
         break;
 
+    case 'atualizar-contato':
+        require_once '../app/view/view_cadastro/vFormContatoUp.php';
+        break;
+
     case 'cadastrar-pedido':
         // Redireciona para a página de contato
         
         require_once '../app/view/view_pedido/form_pedido.php';
         break;
 
+    case 'atualizar-pedido':
+        // Redireciona para a página de contato
+        
+        require_once '../app/view/view_pedido/fmPedidoUp.php';
+        break;
+
     case 'pedidos':
         echo "<a href='home'>Voltar para a Home</a>";
         // Redireciona para view "lista_pedidos.php"]
         require_once '../app/view/view_pedido/lista_pedidos.php';
+        break;
+    
+    case 'transacoes':
+        echo "<a href='home'>Voltar para a Home</a>";
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/view_transacoes/lista_transacoes.php';
+        break;
+    
+    case 'produtos':
+        echo "<a href='home'>Voltar para a Home</a>";
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vProdutos/vListaProd.php';
+        break;
+
+    case 'atualizar-produtos':
+        echo "<a href='home'>Voltar para a Home</a>";
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vProdutos/vFormProdUp.php';
+        break;
+    
+    case 'pacotes':
+        echo "<a href='home'>Voltar para a Home</a>";
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vPacotes/vListaPac.php';
         break;
     
     case 'gerar-contrato':

@@ -14,11 +14,45 @@
     <form action="app/controller/ctrl_pedido/ctrl_addPedido.php" method="POST">
         <h2>Pedido</h2>
 
-        <label for="_id_contato">ID Cadastro</label>
-        <input type="text" id="_id_contato" name="_id_contato" required><br><br>
+        <label for="cadastro">Cadastro</label>
+        <select id="cadastro" name="cadastro" required onchange="preencherIdContato(this);">
+            <option value="">Selecione o Contato</option>
+            <?php
+            require_once('../app/model/model_cadastro/listar_cadastros/listar_contatos.php');
+            $contatos = new ListarContatos();
+            $contatos = $contatos->buscarContatos();
+            foreach ($contatos as $contato) {
+                echo '<option value="' . $contato['_id_contato'] . '" ' .
+                     'data-nome="' . $contato['nome_completo'] . '"> Nome: ' . 
+                     $contato['nome_completo'] . ' - ID: ' . $contato['_id_contato'] . 
+                     '</option>';
+            }
+            ?>
+        </select><br><br>
+
+        <label for="_id_contato">ID do Contato</label>
+        <input type="text" id="_id_contato" name="_id_contato" readonly><br><br>
 
         <label for="nome_contato">Nome do Contratante</label>
-        <input type="text" id="nome_contato" name="nome_contato" required><br><br>
+        <input type="text" id="nome_contato" name="nome_contato" required readonly><br><br>
+
+        <script>
+            function preencherIdContato(selectElement) {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                
+                // Pegar o ID do value
+                const idContato = selectedOption.value;
+                // Pegar o nome do data-nome
+                const nomeContato = selectedOption.getAttribute('data-nome');
+                
+                // Preencher o campo de exibição do ID
+                document.getElementById('_id_contato').value = idContato || '';
+                // Preencher o campo de nome
+                document.getElementById('nome_contato').value = nomeContato || '';
+                // Manter o valor do ID no campo hidden para o formulário
+                //document.getElementById('_id_contato').value = idContato || '';
+            }
+        </script>
 
         <label for="produto_servico">Produto/Serviço</label>
         <input type="text" id="produto_servico" name="produto_servico" required><br><br>
@@ -79,7 +113,7 @@
         <input type="number" id="numero_pagamentos" name="numero_pagamentos" required><br><br>
 
         <label for="valor_pagamento_1">Valor do Primeiro Pagamento (entrada)</label>
-        <input type="number" id="valor_pagamento_1" name="valor_pagamento_1" step="0.01" required><br><br>
+        <input type="number" id="valor_pagamento_1" name="valor_pagamento_1" step="0.01"><br><br>
 
         <label for="data_pagamento_1">Data do Primeiro Pagamento</label>
         <input type="date" id="data_pagamento_1" name="data_pagamento_1"><br><br>

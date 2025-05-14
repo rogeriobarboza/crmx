@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 24/04/2025 às 17:24
+-- Tempo de geração: 08/05/2025 às 17:55
 -- Versão do servidor: 8.2.0
 -- Versão do PHP: 8.2.13
 
@@ -24,15 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cadastros`
+-- Estrutura para tabela `contatos`
 --
 
-DROP TABLE IF EXISTS `cadastros`;
-CREATE TABLE IF NOT EXISTS `cadastros` (
+DROP TABLE IF EXISTS `contatos`;
+CREATE TABLE IF NOT EXISTS `contatos` (
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `_id_empresa` int NOT NULL,
-  `_id_cadastro` int NOT NULL AUTO_INCREMENT,
-  `tipo_cadastro` enum('cliente','colaborador','fornecedor','parceiro','outros') NOT NULL,
+  `_id_contato` int NOT NULL AUTO_INCREMENT,
+  `tipo_contato` enum('cliente','colaborador','fornecedor','parceiro','outros') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nome_completo` varchar(100) NOT NULL,
   `rg` varchar(20) NOT NULL,
   `cpf` varchar(14) NOT NULL,
@@ -53,17 +53,17 @@ CREATE TABLE IF NOT EXISTS `cadastros` (
   `telefone_recados` varchar(15) NOT NULL,
   `email_recados` varchar(100) NOT NULL,
   `origem` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`_id_cadastro`),
+  PRIMARY KEY (`_id_contato`),
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `rg` (`rg`),
   KEY `_id_empresa` (`_id_empresa`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `cadastros`
+-- Despejando dados para a tabela `contatos`
 --
 
-INSERT INTO `cadastros` (`timestamp`, `_id_empresa`, `_id_cadastro`, `tipo_cadastro`, `nome_completo`, `rg`, `cpf`, `data_nasc`, `naturalidade`, `profissao`, `cep`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `telefone`, `email`, `redes_sociais`, `contato_recados`, `telefone_recados`, `email_recados`, `origem`) VALUES
+INSERT INTO `contatos` (`timestamp`, `_id_empresa`, `_id_contato`, `tipo_contato`, `nome_completo`, `rg`, `cpf`, `data_nasc`, `naturalidade`, `profissao`, `cep`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `telefone`, `email`, `redes_sociais`, `contato_recados`, `telefone_recados`, `email_recados`, `origem`) VALUES
 ('2025-04-14 20:14:45', 1, 1, 'cliente', 'Maria Silva Santos', '12.345.678-9', '123.456.789-01', '1990-05-15', 'São Paulo', 'Professora', '01234-567', 'Rua das Flores', '123', NULL, 'Centro', 'São Paulo', 'SP', '(11)99999-1111', 'maria@email.com', NULL, 'João Silva', '(11)99999-2222', 'joao@email.com', NULL),
 ('2025-04-14 20:14:46', 2, 2, 'cliente', 'José Santos Silva', '98.765.432-1', '987.654.321-02', '1985-06-20', 'Rio de Janeiro', 'Engenheiro', '12345-678', 'Av Brasil', '456', NULL, 'Jardins', 'São Paulo', 'SP', '(11)99999-3333', 'jose@email.com', NULL, 'Ana Santos', '(11)99999-4444', 'ana@email.com', NULL),
 ('2025-04-16 13:40:48', 2, 3, 'cliente', 'ROGERIO MORAIS BARBOZA', '347101628', '30329490842', '1981-12-18', 'Santo André', 'Fotografo', '09195-740', 'Travessa Soledade', '19', '0', 'Vila Pires', 'Santo André', 'SP', '11971872119', 'roger.msms@gmail.com', '@abcfotoevideo', 'Adriana Morais', '11-97014-5670', 'testeadriana@mail.com', 'teste'),
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
 
 INSERT INTO `empresas` (`timestamp`, `_id`, `empresa`) VALUES
 ('2025-04-14 20:14:44', 1, 'ABC foto e video'),
-('2025-04-14 20:14:44', 2, 'Adriana Morais Assessoria');
+('2025-04-14 20:14:45', 2, 'Adriana Morais Assessoria');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,17 @@ CREATE TABLE IF NOT EXISTS `pacotes` (
   `status` enum('ativo','inativo') NOT NULL DEFAULT 'ativo',
   PRIMARY KEY (`_id_pacote`),
   KEY `_id_empresa` (`_id_empresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `pacotes`
+--
+
+INSERT INTO `pacotes` (`timestamp`, `_id_pacote`, `_id_empresa`, `nome_pacote`, `descr_pacote`, `detalhar_pacote`, `_ids_produtos`, `custo_pacote`, `preco_pacote`, `status`) VALUES
+('2025-04-24 17:28:53', 1, 1, 'Pacote Casamento Platinum', 'Cobertura completa de casamento', 'Inclui ensaio pré-wedding, making of, fotos e vídeos do evento, álbum premium', '1,2,3,4,5', 1800.00, 4500.00, 'ativo'),
+('2025-04-24 17:28:53', 2, 1, 'Pacote Aniversário Gold', 'Cobertura de aniversário', 'Fotos e vídeos do evento, álbum digital', '3,5', 1000.00, 2800.00, 'ativo'),
+('2025-04-24 17:28:53', 3, 2, 'Pacote Festa Completo', 'Organização completa de eventos', 'Assessoria completa + decoração + buffet', '7,8,9,10', 1750.00, 4800.00, 'ativo'),
+('2025-04-24 17:28:53', 4, 2, 'Pacote Consultoria Básica', 'Consultoria para pequenos eventos', 'Consultoria inicial + day use', '6,7', 450.00, 1200.00, 'ativo');
 
 -- --------------------------------------------------------
 
@@ -124,40 +134,39 @@ CREATE TABLE IF NOT EXISTS `pacotes` (
 DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE IF NOT EXISTS `pedidos` (
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `_id_cadastro` int NOT NULL,
+  `_id_contato` int NOT NULL,
   `_id_pedido` int NOT NULL AUTO_INCREMENT,
-  `nome_contratante` varchar(100) NOT NULL,
+  `nome_contato` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `produto_servico` varchar(100) NOT NULL,
-  `seguimento` enum('casamento','debutante','aniversario','corporativo','outro') NOT NULL,
+  `seguimento` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `titulo_evento` varchar(100) NOT NULL,
-  `data_reservada` date NOT NULL,
+  `data_reservada` varchar(12) NOT NULL,
   `descricao_pedido` text NOT NULL,
   `participantes` text,
   `observacoes` text,
   `numero_convidados` int NOT NULL,
-  `horario_convite` time NOT NULL,
-  `horario_inicio` time NOT NULL,
+  `horario_convite` varchar(12) NOT NULL,
+  `horario_inicio` varchar(12) NOT NULL,
   `valor_original` decimal(10,2) NOT NULL,
   `valor_desconto` decimal(10,2) DEFAULT '0.00',
   `valor_total` decimal(10,2) NOT NULL,
   `forma_pagamento` enum('dinheiro','cartao','pix','transferencia') NOT NULL,
   `numero_pagamentos` int NOT NULL,
-  `data_pagamento_1` date NOT NULL,
-  `vencimento_mensal` int NOT NULL,
+  `valor_pagamento_1` decimal(10,2) DEFAULT NULL,
+  `data_pagamento_1` varchar(12) NOT NULL,
+  `vencimento_mensal` varchar(12) NOT NULL,
   `reserva_equipe` text,
   `estimativa_custo` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`_id_pedido`),
-  KEY `_id_cadastro` (`_id_cadastro`)
-) ;
+  KEY `pedidos_ibfk_1` (`_id_contato`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`timestamp`, `_id_cadastro`, `_id_pedido`, `nome_contratante`, `produto_servico`, `seguimento`, `titulo_evento`, `data_reservada`, `descricao_pedido`, `participantes`, `observacoes`, `numero_convidados`, `horario_convite`, `horario_inicio`, `valor_original`, `valor_desconto`, `valor_total`, `forma_pagamento`, `numero_pagamentos`, `data_pagamento_1`, `vencimento_mensal`, `reserva_equipe`, `estimativa_custo`) VALUES
-('2025-04-14 20:14:46', 1, 1, 'Maria Silva Santos', 'Fotografia e Filmagem', 'casamento', 'Casamento Maria e João', '2024-10-15', 'Cobertura completa', NULL, NULL, 200, '20:00:00', '21:00:00', 5000.00, 0.00, 4500.00, 'pix', 10, '2024-05-01', 5, NULL, NULL),
-('2025-04-14 20:14:46', 2, 2, 'José Santos Silva', 'Assessoria Completa', 'debutante', '15 Anos Ana', '2024-08-20', 'Organização completa', NULL, NULL, 150, '19:00:00', '20:00:00', 8000.00, 0.00, 7500.00, 'cartao', 12, '2024-04-01', 10, NULL, NULL),
-('2025-04-16 19:19:29', 2, 3, 'José Santos Silva', 'Cobertura fotográfica', 'aniversario', '1 ano Pedrinho', '2025-05-18', 'Exemplo descrição do pedido', 'Papai, mamãe e vovó', 'Cuidado! Acriança não gosta de flash.', 50, '16:00:00', '16:30:00', 500.00, 100.00, 400.00, 'pix', 3, '2025-04-16', 16, '1 foto: Franco filho', 300.00);
+INSERT INTO `pedidos` (`timestamp`, `_id_contato`, `_id_pedido`, `nome_contato`, `produto_servico`, `seguimento`, `titulo_evento`, `data_reservada`, `descricao_pedido`, `participantes`, `observacoes`, `numero_convidados`, `horario_convite`, `horario_inicio`, `valor_original`, `valor_desconto`, `valor_total`, `forma_pagamento`, `numero_pagamentos`, `valor_pagamento_1`, `data_pagamento_1`, `vencimento_mensal`, `reserva_equipe`, `estimativa_custo`) VALUES
+('2025-05-08 12:47:23', 1, 53, 'Maria Santos Silva', 'Pack ouro', 'casamento', 'Casamento Paulo', '2026-10-20', 'Foto vieo album', 'padrinhos e madrinhas', 'retrato com padrinhos no altar', 120, '19:00', '19:30', 6000.00, 500.00, 5500.00, 'pix', 12, 1500.00, '2025-05-05', '2025-06-01', 'xxx', 2000.00);
 
 -- --------------------------------------------------------
 
@@ -179,7 +188,23 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `status` varchar(12) NOT NULL,
   PRIMARY KEY (`_id_produto`),
   KEY `_id_empresa` (`_id_empresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`timestamp`, `_id_empresa`, `_id_produto`, `categoria`, `nome_produto`, `descr_prod`, `detalhar_prod`, `custo_prod`, `preco_prod`, `status`) VALUES
+('2025-04-24 17:28:52', 1, 1, 'Fotografia', 'Ensaio Pré-Wedding', 'Sessão fotográfica para noivos', 'Ensaio em 2 locações, 50 fotos tratadas, álbum digital', 300.00, 800.00, 'ativo'),
+('2025-04-24 17:28:52', 1, 2, 'Filmagem', 'Making Of', 'Filmagem dos bastidores', 'Vídeo resumo de 3-5 minutos, edição completa', 200.00, 600.00, 'ativo'),
+('2025-04-24 17:28:52', 1, 3, 'Fotografia', 'Cobertura Básica', 'Cobertura fotográfica evento', 'Até 4 horas de cobertura, 100 fotos tratadas', 400.00, 1200.00, 'ativo'),
+('2025-04-24 17:28:52', 1, 4, 'Impressão', 'Álbum Premium', 'Álbum fotográfico encadernado', '30x30cm, capa dura, 20 páginas', 250.00, 800.00, 'ativo'),
+('2025-04-24 17:28:52', 1, 5, 'Filmagem', 'Vídeo Completo', 'Filmagem completa do evento', 'Vídeo completo editado + highlights', 600.00, 1800.00, 'ativo'),
+('2025-04-24 17:28:52', 2, 6, 'Assessoria', 'Consultoria Inicial', 'Planejamento inicial do evento', '2 reuniões presenciais, cronograma básico', 150.00, 400.00, 'ativo'),
+('2025-04-24 17:28:52', 2, 7, 'Assessoria', 'Day Use', 'Assessoria no dia do evento', 'Coordenação completa no dia', 300.00, 900.00, 'ativo'),
+('2025-04-24 17:28:52', 2, 8, 'Decoração', 'Decoração Básica', 'Decoração evento pequeno', 'Mesa principal + 2 arranjos laterais', 400.00, 1200.00, 'ativo'),
+('2025-04-24 17:28:52', 2, 9, 'Buffet', 'Coffee Break', 'Serviço de coffee break', 'Café, água, 3 tipos de salgados, 2 doces', 250.00, 800.00, 'ativo'),
+('2025-04-24 17:28:52', 2, 10, 'Assessoria', 'Assessoria Completa', 'Planejamento completo', 'Desde o planejamento até execução', 800.00, 2500.00, 'ativo');
 
 -- --------------------------------------------------------
 
@@ -191,47 +216,50 @@ DROP TABLE IF EXISTS `transacoes`;
 CREATE TABLE IF NOT EXISTS `transacoes` (
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `_id_transacao` int NOT NULL AUTO_INCREMENT,
-  `data_venc` date NOT NULL,
-  `transacao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `situacao` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'A receber',
-  `data_transacao` date DEFAULT NULL,
-  `num_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `_id_pedido` int DEFAULT NULL,
+  `_id_contato` int DEFAULT NULL,
+  `venc_mensal` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transacao` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `situacao` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_transacao` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `num_pgto` int DEFAULT NULL,
   `valor_pgto` decimal(10,2) DEFAULT NULL,
   `metodo_pgto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `_id_pedido` int DEFAULT NULL,
   `pedido` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cadastro` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contato` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contato` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `metodos_contato` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `info_adicional` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`_id_transacao`),
   KEY `_id_pedido` (`_id_pedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3555 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `transacoes`
 --
 
-INSERT INTO `transacoes` (`timestamp`, `_id_transacao`, `data_venc`, `transacao`, `situacao`, `data_transacao`, `num_pgto`, `valor_pgto`, `metodo_pgto`, `_id_pedido`, `pedido`, `cadastro`, `contato`, `info_adicional`) VALUES
-('2025-04-20 12:19:14', 1, '2024-05-01', 'Receita', 'pago', '2024-05-01', '1/10', 1000.00, 'pix', 1, NULL, '', '', 'Entrada Casamento Maria e João'),
-('2025-04-20 12:19:14', 2, '2024-06-05', 'Parcela 2 Casamento Maria e João', 'a receber', NULL, '2/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
-('2025-04-20 12:19:14', 3, '2024-07-05', 'Parcela 3 Casamento Maria e João', 'pendente', NULL, '3/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
-('2025-04-20 12:19:14', 4, '2024-08-05', 'Parcela 4 Casamento Maria e João', 'a pagar', NULL, '4/10', 389.00, 'pix', 1, NULL, '', '', 'Aguardando pagamento'),
-('2025-04-20 12:19:14', 5, '2024-04-01', 'Entrada 15 Anos Ana', 'sim', '2024-04-01', '1/12', 1500.00, 'cartao', 2, NULL, '', '', 'Entrada paga via maquininha'),
-('2025-04-20 12:19:14', 6, '2024-05-10', 'Parcela 2 15 Anos Ana', 'sim', '2024-05-09', '2/12', 545.45, 'cartao', 2, NULL, '', '', 'Pagamento antecipado'),
-('2025-04-20 12:19:14', 7, '2024-06-10', 'Parcela 3 15 Anos Ana', 'nao', NULL, '3/12', 545.45, 'cartao', 2, NULL, '', '', 'Aguardando vencimento'),
-('2025-04-20 12:19:14', 8, '2025-04-16', 'Entrada Aniversário Pedrinho', 'sim', '2025-04-16', '1/3', 200.00, 'pix', 3, NULL, '', '', 'Entrada quitada'),
-('2025-04-20 12:19:14', 9, '2025-05-16', 'Parcela 2 Aniversário Pedrinho', 'nao', NULL, '2/3', 100.00, 'pix', 3, NULL, '', '', 'Aguardando vencimento'),
-('2025-04-20 12:19:14', 10, '2025-06-16', 'Parcela 3 Aniversário Pedrinho', 'nao', NULL, '3/3', 100.00, 'pix', 3, NULL, '', '', 'Parcela final');
+INSERT INTO `transacoes` (`timestamp`, `_id_transacao`, `_id_pedido`, `_id_contato`, `venc_mensal`, `transacao`, `situacao`, `data_transacao`, `num_pgto`, `valor_pgto`, `metodo_pgto`, `pedido`, `contato`, `metodos_contato`, `info_adicional`) VALUES
+('2025-05-08 12:47:23', 3543, 53, 1, '2025-05-05', 'RECEITA', 'A RECEBER', NULL, 1, 1500.00, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'Entrada | info adicional teste'),
+('2025-05-08 12:47:23', 3544, 53, 1, '2025-06-01', 'RECEITA', 'A RECEBER', NULL, 2, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3545, 53, 1, '2025-07-01', 'RECEITA', 'A RECEBER', NULL, 3, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3546, 53, 1, '2025-08-01', 'RECEITA', 'A RECEBER', NULL, 4, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3547, 53, 1, '2025-09-01', 'RECEITA', 'A RECEBER', NULL, 5, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3548, 53, 1, '2025-10-01', 'RECEITA', 'A RECEBER', NULL, 6, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3549, 53, 1, '2025-11-01', 'RECEITA', 'A RECEBER', NULL, 7, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3550, 53, 1, '2025-12-01', 'RECEITA', 'A RECEBER', NULL, 8, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:23', 3551, 53, 1, '2026-01-01', 'RECEITA', 'A RECEBER', NULL, 9, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:24', 3552, 53, 1, '2026-02-01', 'RECEITA', 'A RECEBER', NULL, 10, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:24', 3553, 53, 1, '2026-03-01', 'RECEITA', 'A RECEBER', NULL, 11, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste'),
+('2025-05-08 12:47:24', 3554, 53, 1, '2026-04-01', 'RECEITA', 'A RECEBER', NULL, 12, 363.64, 'pix', 'Casamento Paulo', 'Maria Santos Silva', '(11)99999-1111, maria@email.com', 'info adicional teste');
 
 --
 -- Restrições para tabelas despejadas
 --
 
 --
--- Restrições para tabelas `cadastros`
+-- Restrições para tabelas `contatos`
 --
-ALTER TABLE `cadastros`
-  ADD CONSTRAINT `cadastros_ibfk_1` FOREIGN KEY (`_id_empresa`) REFERENCES `empresas` (`_id`) ON DELETE RESTRICT;
+ALTER TABLE `contatos`
+  ADD CONSTRAINT `contatos_ibfk_1` FOREIGN KEY (`_id_empresa`) REFERENCES `empresas` (`_id`) ON DELETE RESTRICT;
 
 --
 -- Restrições para tabelas `pacotes`
@@ -243,7 +271,7 @@ ALTER TABLE `pacotes`
 -- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`_id_cadastro`) REFERENCES `cadastros` (`_id_cadastro`) ON DELETE RESTRICT;
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`_id_contato`) REFERENCES `contatos` (`_id_contato`) ON DELETE RESTRICT;
 
 --
 -- Restrições para tabelas `produtos`

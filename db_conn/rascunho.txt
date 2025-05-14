@@ -1,32 +1,31 @@
 C:\wamp64\www\projetos\contrato_x\db_conn\dbConn.php:51:
 array (size=6)
-  'cadastros' => 
+  'contatos' => 
     array (size=24)
-      'timestamp'
-      '_id_empresa'
-      '_id_cadastro'
-      'tipo_cadastro'
-      'nome_completo'
-      'rg'
-      'cpf'
-      'data_nasc'
-      'naturalidade' 
-      'profissao'
-       'cep'
-       'rua'
-       'numero'
-       'complemento' 
-       'bairro'
-       'cidade'
-       'estado'
-       'telefone'
-       'email'
-       'redes_sociais' 
-       'contato_recados' 
-       'telefone_recados' 
-       'email_recados' 
-       'origem'
-
+      0 => string 'timestamp' (length=9)
+      1 => string '_id_empresa' (length=11)
+      2 => string '_id_contato' (length=11)
+      3 => string 'tipo_contato' (length=12)
+      4 => string 'nome_completo' (length=13)
+      5 => string 'rg' (length=2)
+      6 => string 'cpf' (length=3)
+      7 => string 'data_nasc' (length=9)
+      8 => string 'naturalidade' (length=12)
+      9 => string 'profissao' (length=9)
+      10 => string 'cep' (length=3)
+      11 => string 'rua' (length=3)
+      12 => string 'numero' (length=6)
+      13 => string 'complemento' (length=11)
+      14 => string 'bairro' (length=6)
+      15 => string 'cidade' (length=6)
+      16 => string 'estado' (length=6)
+      17 => string 'telefone' (length=8)
+      18 => string 'email' (length=5)
+      19 => string 'redes_sociais' (length=13)
+      20 => string 'contato_recados' (length=15)
+      21 => string 'telefone_recados' (length=16)
+      22 => string 'email_recados' (length=13)
+      23 => string 'origem' (length=6)
   'empresas' => 
     array (size=3)
       0 => string 'timestamp' (length=9)
@@ -44,12 +43,14 @@ array (size=6)
       7 => string 'custo_pacote' (length=12)
       8 => string 'preco_pacote' (length=12)
       9 => string 'status' (length=6)
+
   'pedidos' => 
-    array (size=23)
+    array (size=24)
+
       0 => string 'timestamp' (length=9)
-      1 => string '_id_cadastro' (length=12)
+      1 => string '_id_contato' (length=11)
       2 => string '_id_pedido' (length=10)
-      3 => string 'nome_contratante' (length=16)
+      3 => string 'nome_contato' (length=12)
       4 => string 'produto_servico' (length=15)
       5 => string 'seguimento' (length=10)
       6 => string 'titulo_evento' (length=13)
@@ -65,10 +66,12 @@ array (size=6)
       16 => string 'valor_total' (length=11)
       17 => string 'forma_pagamento' (length=15)
       18 => string 'numero_pagamentos' (length=17)
-      19 => string 'data_pagamento_1' (length=16)
-      20 => string 'vencimento_mensal' (length=17)
-      21 => string 'reserva_equipe' (length=14)
-      22 => string 'estimativa_custo' (length=16)
+      19 => string 'valor_pagamento_1' (length=17)
+      20 => string 'data_pagamento_1' (length=16)
+      21 => string 'vencimento_mensal' (length=17)
+      22 => string 'reserva_equipe' (length=14)
+      23 => string 'estimativa_custo' (length=16)
+
   'produtos' => 
     array (size=10)
       0 => string 'timestamp' (length=9)
@@ -81,19 +84,20 @@ array (size=6)
       7 => string 'custo_prod' (length=10)
       8 => string 'preco_prod' (length=10)
       9 => string 'status' (length=6)
-'transacoes' => 
-array (size=14)
-timestamp
-_id_transacao
-$data_venc
-$transacao
-$situacao
-$data_transacao
-$num_pgto
-$valor_pgto
-$metodo_pgto
-$_id_pedido
-$pedido
-$cadastro
-$contato
-$info_adicional
+  'transacoes' => 
+    array (size=15)
+      0 => string 'timestamp' (length=9)
+      1 => string '_id_transacao' (length=13)
+      2 => string '_id_pedido' (length=10)
+      3 => string '_id_contato' (length=11)
+      4 => string 'venc_mensal' (length=11)
+      5 => string 'transacao' (length=9)
+      6 => string 'situacao' (length=8)
+      7 => string 'data_transacao' (length=14)
+      8 => string 'num_pgto' (length=8)
+      9 => string 'valor_pgto' (length=10)
+      10 => string 'metodo_pgto' (length=11)
+      11 => string 'pedido' (length=6)
+      12 => string 'contato' (length=7)
+      13 => string 'metodos_contato' (length=15)
+      14 => string 'info_adicional' (length=14)

@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vencimento_mensal = $_POST['vencimento_mensal'] ?? "Não informado";
     $reserva_equipe = $_POST['reserva_equipe'] ?? "Não informado";
     $estimativa_custo = $_POST['estimativa_custo'] ?? "Não informado";
-    $info_adicional = $_POST['info_adicional'] ?? "Não informado";
+    $info_add = $_POST['info_adicional'] ?? "Não informado";
 
     // Chama o método para inserir o pedido
 
@@ -82,29 +82,45 @@ $contato = $nome_contato; // Ok - Ja capturado acima com metodo $_POST
         $telefone = $info_metodos_contato['telefone'] ?? "Não informado"; // Ok - telefone do cliente/contratante.
         $email = $info_metodos_contato['email'] ?? "Não informado"; // Ok - email do cliente/contratante.
 $metodos_contato = $telefone . ", ". $email; // Ok - telefone, email ou whatsapp do cliente/contratante.
-$info_adicional; // Ok - Ja capturado acima com metodo $_POST
+$info_adicional = $info_add; // Ok - Ja capturado acima com metodo $_POST
+
 
 // Fazer a LÓGICA para definir o NÚMERO e VALOR do pagamento e INSERIR no DB
 if($valor_pagamento_1 > 0) {
     $venc_mensal = $data_pagamento_1; // Data do primeiro pagamento (entrada)
     $num_pgto = 1; // Número do pagamento (entrada)
     $valor_pgto = $valor_pagamento_1; // Valor do pagamento (entrada)
+    $info_adicional = "Entrada | $info_add"; // Informação adicional para o pagamento de entrada
     // Chama o método para inserir a transação de entrada
     $addPedido->addTransacao($_id_pedido,$_id_contato,$venc_mensal,$transacao,$situacao,$num_pgto,$valor_pgto,$metodo_pgto,$pedido,$contato,$metodos_contato,$info_adicional);
     $parcelas = $numero_pagamentos - 1; // Número de pagamentos restantes (parcelas)
     
     while($num_pgto <= $parcelas) {
-        $venc_mensal = $vencimento_mensal . "teste venc. mensal"; // Data do vencimento mensal
+        if ($num_pgto == 1) {
+            $venc_mensal = $vencimento_mensal; // form ->Data do 1º Vencimento Mensal
+        } else {
+            $num_pgto--; // Decrementa o número do pagamento para calcular o vencimento mensal
+            $venc_mensal = $addPedido->vencs($vencimento_mensal,$num_pgto); // Data do vencimento mensal
+            $num_pgto++;
+        }
+        
         $num_pgto++; // Incrementa o número do pagamento
         $valor_pgto = ($valor_total - $valor_pagamento_1) / $parcelas; // Valor do pagamento
+        $info_adicional = $info_add;
         // Chama o método para inserir a transação de entrada
         $addPedido->addTransacao($_id_pedido,$_id_contato,$venc_mensal,$transacao,$situacao,$num_pgto,$valor_pgto,$metodo_pgto,$pedido,$contato,$metodos_contato,$info_adicional);
     }
 } elseif($valor_pagamento_1 == 0) {
     $num_pgto = 0; // Número do pagamento (entrada)
+    $info_adicional = $info_add;
     
     while($num_pgto < $numero_pagamentos) {
-        $venc_mensal = $vencimento_mensal . "teste venc. mensal"; // Data do vencimento mensal
+        if ($num_pgto < 1) {
+            $venc_mensal = $vencimento_mensal; // form ->Data do 1º Vencimento Mensal
+        } else {
+            $venc_mensal = $addPedido->vencs($vencimento_mensal,$num_pgto); // Data do vencimento mensal
+        }
+         // Data do vencimento mensal
         $num_pgto++; // Incrementa o número do pagamento
         $valor_pgto = $valor_total / $numero_pagamentos; // Valor do pagamento
         // Chama o método para inserir a transação de entrada
@@ -114,6 +130,9 @@ if($valor_pagamento_1 > 0) {
     echo json_encode($transacao); // Retorna o ID da transação inserida
 
 } else {echo "Nenhuma entrada informada.";}
+
+
+
 
 
 

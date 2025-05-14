@@ -16,13 +16,7 @@ class ListarPedidos {
      */
     public function getTodosPedidos() {
         try {
-            $sql = "SELECT 
-                    _id_pedido,
-                    titulo_evento,
-                    nome_contato,
-                    data_reservada
-                    FROM pedidos 
-                    ORDER BY data_reservada DESC";
+            $sql = "SELECT * FROM pedidos ORDER BY data_reservada DESC";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();

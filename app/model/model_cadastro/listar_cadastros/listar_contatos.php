@@ -8,7 +8,7 @@ class ListarContatos extends DbConn {
         try {
             $conn = $this->connect();
             
-            $query = "SELECT * FROM contatos ORDER BY timestamp ASC";
+            $query = "SELECT * FROM contatos ORDER BY nome_completo ASC";
 
             $stmt = $conn->prepare($query);
             $stmt->execute();

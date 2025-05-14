@@ -43,9 +43,18 @@ class DbConn {
     }
 
 
+    public function getInfoTablesAndColumns() {
+        $conn = new DbConn();
+
+        $conn->connect();
+        $infoTabelas = $conn->getTablesAndColumns();
+        var_dump($infoTabelas); 
+    }
+
+
 }
 
-//$infoDb = new DbConn();
-//$infoDb->connect();
-//$infoTabelas = $infoDb->getTablesAndColumns();
-//var_dump($infoTabelas);
+
+    
+
+
