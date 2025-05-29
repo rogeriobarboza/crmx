@@ -3,6 +3,7 @@ array (size=6)
   'contatos' => 
     array (size=24)
       0 => string 'timestamp' (length=9)
+                  'modificado'
       1 => string '_id_empresa' (length=11)
       2 => string '_id_contato' (length=11)
       3 => string 'tipo_contato' (length=12)

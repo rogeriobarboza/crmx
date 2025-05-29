@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atualizar Produto</title>
+    <title>Atualizar Contato</title>
     <link rel="stylesheet" href="public/assets/css/form_produto.css">
 </head>
 <body>
 
     <h1>Atualizar contato</h1>
 
-    <form action="app/view/vProdutos/fnUpProduto.php" method="POST">
+    <form action="app/view/view_cadastro/fnUpContato.php" method="POST">
 
     <!-- Form para buscar a empresa -->
         <h2>Buscar Empresa</h2>
@@ -27,7 +27,7 @@
             const termo = input.value.trim();
 
             if (termo.length >= 1) {
-                fetch('app/view/vProdutos/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
+                fetch('app/view/view_cadastro/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
                     .then(response => response.json())
                     .then(dados => {
                         sugestoes.innerHTML = '';
@@ -72,91 +72,167 @@
         <label for="nome_empresa">Nome Empresa</label>
         <input type="text" id="nome_empresa" name="nome_empresa" readonly><br><br>
 
-    <!-- Form para buscar o produto -->
+
+
+    <!-- Form para buscar o Contato -->
         <h2>Buscar Contato</h2>
-    <div class="campo-container-produto">
-        <input type="text" id="pesquisa-produto" placeholder="Digite o nome..." autocomplete="off">
-        <div id="sugestoes-produto"></div>
+    <div class="campo-container-contato">
+        <input type="text" id="pesquisa-contato" placeholder="Digite o nome..." autocomplete="off">
+        <div id="sugestoes-contato"></div>
     </div>
 
     <script>
-        const inputProduto = document.getElementById('pesquisa-produto');
-        const sugestoesProduto = document.getElementById('sugestoes-produto');
+        const inputContato = document.getElementById('pesquisa-contato');
+        const sugestoesContato = document.getElementById('sugestoes-contato');
 
-        inputProduto.addEventListener('keyup', function () {
-            const termoProduto = inputProduto.value.trim();
+        inputContato.addEventListener('keyup', function () {
+            const termoContato = inputContato.value.trim();
             const idEmpresa = document.getElementById('_id_empresa').value; // Pega o ID da empresa selecionada
 
-            if (termoProduto.length >= 1 && idEmpresa) {
-                fetch('app/view/vProdutos/fnBuscarProduto.php?termoProduto=' + encodeURIComponent(termoProduto) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
+            if (termoContato.length >= 1 && idEmpresa) {
+                fetch('app/view/view_cadastro/fnBuscarContato.php?termoContato=' + encodeURIComponent(termoContato) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
                     .then(response => response.json())
                     .then(dados => {
-                        sugestoesProduto.innerHTML = '';
+                        sugestoesContato.innerHTML = '';
 
                         if (dados.length > 0) {
                             dados.forEach(item => {
                                 const div = document.createElement('div');
-                                div.classList.add('sugestaoProduto');
+                                div.classList.add('sugestaoContato');
                                 // Alterando para usar as propriedades corretas do JSON
-                                div.textContent = "ID: " + item._id_produto + ' - ' + item.nome_produto;
+                                div.textContent = "ID: " + item._id_contato + ' - ' + item.nome_completo;
                                 div.addEventListener('click', function () {
-                                    inputProduto.value = item.nome_produto;
+                                    inputContato.value = item.nome_completo;
                                     // Preenchendo todos os campos do formulário
-                                    document.getElementById('_id_produto').value = item._id_produto;
-                                    document.getElementById('nome_produto').value = item.nome_produto;
-                                    document.getElementById('categoria').value = item.categoria;
-                                    document.getElementById('descr_prod').value = item.descr_prod;
-                                    document.getElementById('detalhar_prod').value = item.detalhar_prod;
-                                    document.getElementById('custo_prod').value = item.custo_prod;
-                                    document.getElementById('preco_prod').value = item.preco_prod;
-                                    document.getElementById('status').value = item.status;
-                                    sugestoesProduto.innerHTML = '';
+                                    document.getElementById('_id_empresa').value = item._id_empresa;
+                                    document.getElementById('_id_contato').value = item._id_contato;
+                                    document.getElementById('tipo_contato').value = item.tipo_contato;
+                                    document.getElementById('nome_completo').value = item.nome_completo;
+                                    document.getElementById('rg').value = item.rg;
+                                    document.getElementById('cpf').value = item.cpf;
+                                    document.getElementById('data_nasc').value = item.data_nasc;
+                                    document.getElementById('naturalidade').value = item.naturalidade;
+                                    document.getElementById('profissao').value = item.profissao;
+                                    document.getElementById('cep').value = item.cep;
+                                    document.getElementById('rua').value = item.rua;
+                                    document.getElementById('numero').value = item.numero;
+                                    document.getElementById('complemento').value = item.complemento;
+                                    document.getElementById('bairro').value = item.bairro;
+                                    document.getElementById('cidade').value = item.cidade;
+                                    document.getElementById('estado').value = item.estado;
+                                    document.getElementById('telefone').value = item.telefone;
+                                    document.getElementById('email').value = item.email;
+                                    document.getElementById('redes_sociais').value = item.redes_sociais;
+                                    document.getElementById('contato_recados').value = item.contato_recados;
+                                    document.getElementById('telefone_recados').value = item.telefone_recados;
+                                    document.getElementById('email_recados').value = item.email_recados;
+                                    document.getElementById('origem').value = item.origem;
+                                    sugestoesContato.innerHTML = '';
                                 });
-                                sugestoesProduto.appendChild(div);
+                                sugestoesContato.appendChild(div);
                             });
                         } else {
-                            sugestoesProduto.innerHTML = '<div class="sugestaoProduto">Nenhum resultado encontrado</div>';
+                            sugestoesContato.innerHTML = '<div class="sugestaoContato">Nenhum resultado encontrado</div>';
                         }
                     });
             } else {
-                sugestoesProduto.innerHTML = idEmpresa ? '' : '<div class="sugestaoProduto">Selecione uma empresa primeiro</div>';
+                sugestoesContato.innerHTML = idEmpresa ? '' : '<div class="sugestaoContato">Selecione uma empresa primeiro</div>';
             }
         });
 
         // Esconde sugestões ao clicar fora
         document.addEventListener('click', function (e) {
-            if (!e.target.closest('.campo-container-produto')) {
-                sugestoesProduto.innerHTML = '';
+            if (!e.target.closest('.campo-container-contato')) {
+                sugestoesContato.innerHTML = '';
             }
         });
     </script>
     <br><br>
 
-        <label for="_id_produto">ID Produto</label>
-        <input type="number" id="_id_produto" name="_id_produto" readonly><br><br>
+        <label for="_id_contato">ID Contato</label>
+        <input type="number" id="_id_contato" name="_id_contato" readonly><br><br>
 
-        <label for="nome_produto">Nome Produto</label>
-        <input type="text" id="nome_produto" name="nome_produto"><br><br>
+        <label for="tipo_contato">Tipo de Cadastro</label>
+        <select id="tipo_contato" name="tipo_contato" required>
+            <option value="cliente">Cliente</option>
+            <option value="colaborador">Colaborador</option>
+            <option value="parceiro">Parceiro</option>
+        </select><br><br>
 
-        <label for="categoria">Categoria</label>
-        <input type="text" id="categoria" name="categoria"><br><br>
 
-        <label for="descr_prod">Descrição Produto</label>
-        <input type="text" id="descr_prod" name="descr_prod"><br><br>
+        <label for="nome_completo">Nome completo:</label>
+        <input type="text" id="nome_completo" name="nome_completo" required><br><br>
 
-        <label for="detalhar_prod">Detalhar Produto</label>
-        <input type="text" id="detalhar_prod" name="detalhar_prod"><br><br>
+        <label for="rg">RG</label>
+        <input type="text" id="rg" name="rg" required><br><br>
 
-        <label for="custo_prod">Custo Produto</label>
-        <input type="text" id="custo_prod" name="custo_prod"><br><br>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required><br><br>
+
+        <label for="data_nasc">Data de nascimento</label>
+        <input type="date" id="data_nasc" name="data_nasc" required><br><br>
+
+        <label for="naturalidade">Natural de</label>
+        <input type="text" id="naturalidade" name="naturalidade" required><br><br>
+
+        <label for="profissao">Profissão</label>
+        <input type="text" id="profissao" name="profissao" required><br><br>
+
+        <!--ENDEREÇO-->
+        <h2>Endereço</h2>
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" name="cep" required><br><br>
+
+        <label for="rua">Endereço</label>
+        <input type="text" id="rua" name="rua" required><br><br>
+
+        <label for="numero">Número</label>
+        <input type="text" id="numero" name="numero" required><br><br>
+
+        <label for="complemento">Complemento</label>
+        <input type="text" id="complemento" name="complemento"><br><br>
+
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" name="bairro" required><br><br>
+
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" name="cidade" required><br><br>
+
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" name="estado" required><br><br>
+
+        <!--CONTATO-->
+        <h2>Contato</h2>
         
-        <label for="preco_prod">Preço Produto</label>
-        <input type="text" id="preco_prod" name="preco_prod"><br><br>
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required><br><br>
 
-        <label for="status">Status</label>
-        <input type="text" id="status" name="status"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
 
-        <input type="submit" value="Atualizar Produto">
+        <label for="redes_sociais">Redes sociais</label>
+        <input type="text" id="redes_sociais" name="redes_sociais" placeholder="Redes sociais"><br><br>
+
+        <!--CONTATO PARA RECADOS-->
+        <h2>Contato para recados</h2>
+        <label for="contato_recados">Nome:</label>
+        <input type="text" id="contato_recados" name="contato_recados" required><br><br>
+
+        <label for="telefone_recados">Telefone:</label>
+        <input type="tel" id="telefone_recados" name="telefone_recados" required><br><br>
+
+        <label for="email_recados">Email:</label>
+        <input type="email" id="email_recados" name="email_recados" required><br><br>
+
+        <!-- OUTROS DADOS -->
+        <h2>Outros dados</h2>        
+        <label for="origem">Como chegou até nós</label>
+        <input type="text" id="origem" name="origem" placeholder="Como chegou até nós"><br><br>
+        <br><br>
+
+
+
+        <input type="submit" value="Atualizar Contato">
 
         <input type="reset" value="Limpar Campos"><br><br>
 

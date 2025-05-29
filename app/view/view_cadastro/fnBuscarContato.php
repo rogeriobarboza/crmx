@@ -11,14 +11,14 @@ $password = '';
 $pdo = new PDO("mysql:host={$host};dbname={$dbName}", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$termoProduto = $_GET['termoProduto'] ?? '';
+$termoProduto = $_GET['termoContato'] ?? '';
 $idEmpresa = $_GET['idEmpresa'] ?? '';
 
 if ($termoProduto && $idEmpresa) {
     $sql = "SELECT *
-            FROM produtos 
-            WHERE nome_produto LIKE :termo 
-            AND _id_empresa = :idEmpresa
+            FROM contatos 
+            WHERE _id_contato LIKE :termo AND _id_empresa = :idEmpresa
+            OR nome_completo LIKE :termo AND _id_empresa = :idEmpresa
             LIMIT 10";
             
     $stmt = $pdo->prepare($sql);
