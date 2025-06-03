@@ -49,21 +49,8 @@ $pdfBase64 = base64_encode($pdfContent);
     <html>
         <head>
             <title>Visualização do PDF</title>
-            <style>
-                .pdf-container {
-                    width: 50%;
-                    height: 75vh;
-                    margin: 50px auto;
-                    border: 1px solid #ccc;
-                }
-
-                .controls {
-                    margin: 10px 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            </style>
+            <link rel="stylesheet" href="public/assets/css/style.css">
+            
         </head>
             <body>
                 <div class="pdf-container">

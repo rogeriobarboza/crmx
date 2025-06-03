@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/db_conn/dbConn.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
 $_id_pedido = $_POST['_id_pedido'] ?? null; // ID do pedido a ser atualizado
 
 class upPedido {

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Produtos</title>
-    <link rel="stylesheet" href="public/assets/css/lista_pedido.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 <body>
 
@@ -46,7 +46,8 @@ echo "<table border='1'>";
 echo "<thead>";
 echo "<tr>";
 
-echo "<th>timestamp</th>";
+echo "<th>criado</th>";
+echo "<th>modificado</th>";
 echo "<th>_id_empresa</th>";
 echo "<th>_id_produto</th>";
 echo "<th>categoria</th>";
@@ -64,7 +65,8 @@ echo "<tbody>";
 foreach ($query as $produto) {
     echo "<tr>";
 
-    echo "<td>" . $produto['timestamp'] . "</td>";
+    echo "<td>" . $produto['criado'] . "</td>";
+    echo "<td>" . $produto['modificado'] . "</td>";
     echo "<td>" . $produto['_id_empresa'] . "</td>";
     echo "<td>" . $produto['_id_produto'] . "</td>";
     echo "<td>" . $produto['categoria'] . "</td>";

@@ -8,7 +8,7 @@ var_dump($id); // Retorna o ID do pedido excluído
 //selectById($tb, $id);
 
 function deleteById($id) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/db_conn/dbConn.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
     $conn = new DbConn();
     $query = "DELETE FROM pedidos WHERE _id_pedido = ?";
     $stmt = $conn->connect()->prepare($query);

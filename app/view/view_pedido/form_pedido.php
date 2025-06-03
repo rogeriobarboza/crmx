@@ -9,8 +9,6 @@
 <body>
     <h1>Cadastro Pedidos</h1>
 
-    <a href="home">Home</a><br><br>
-
     <form action="app/controller/ctrl_pedido/ctrl_addPedido.php" method="POST">
         <h2>Pedido</h2>
 

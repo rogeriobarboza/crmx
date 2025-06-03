@@ -9,9 +9,10 @@ $lista_pedido = new ctrl_pedido();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Transações</title>
-    <link rel="stylesheet" href="public/assets/css/lista_pedido.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 <body>
+    <h1>Todas as transações</h1>
 
 <?php
 require_once('../db_conn/dbConn.php');

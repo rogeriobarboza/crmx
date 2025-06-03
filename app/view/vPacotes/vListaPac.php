@@ -9,7 +9,7 @@ $conn = new dbConn();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Pacotes</title>
-    <link rel="stylesheet" href="public/assets/css/lista_pedido.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@ echo "<table border='1'>";
     echo "<thead>";
         echo "<tr>";
 
-        echo "<th>timestamp</th>";
+        echo "<th>criado</th>";
         echo "<th>_id_pacote</th>";
         echo "<th>_id_empresa</th>";
         echo "<th>nome_pacote</th>";
@@ -41,7 +41,7 @@ echo "<table border='1'>";
 
         foreach ($pacs as $pac) {
             echo "<tr>";
-                echo "<td>$pac[timestamp]</td>";
+                echo "<td>$pac[criado]</td>";
                 echo "<td>$pac[_id_pacote]</td>";
                 echo "<td>$pac[_id_empresa]</td>";
                 echo "<td>$pac[nome_pacote]</td>";

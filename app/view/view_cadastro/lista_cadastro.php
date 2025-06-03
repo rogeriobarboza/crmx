@@ -10,9 +10,10 @@ $lista_cadastro = new CtrlCadastro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Cadastro</title>
-    <link rel="stylesheet" href="public/assets/css/lista_cadastro.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 <body>
+    <h1>Todas as pessoas cadastradas no sistema</h1>
 
 <?php
 

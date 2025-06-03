@@ -9,7 +9,14 @@
 </head>
 <body>
     <h1>Formulário Cadastro</h1>
-    <a href="home">Home</a><br><br>
+
+    <!--
+    <div class="nav-links">
+        <a href="home1">Home</a>
+        <a href="home2">Home</a>
+        <a href="home3">Home</a>
+    </div>
+    -->
 
     <form action="app/controller/ctrl_cadastro/ctrl_cadastrar.php" method="POST">
 

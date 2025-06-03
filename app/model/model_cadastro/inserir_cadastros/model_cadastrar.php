@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/db_conn/dbConn.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
 
 class CadastrarContato {
     private $conn;

@@ -9,9 +9,10 @@ $lista_pedido = new ctrl_pedido();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pedidos</title>
-    <link rel="stylesheet" href="public/assets/css/lista_pedido.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 <body>
+    <h1>Todos os pedidos cadastrados no sistema</h1>
 
 <?php
 $pedidos = $lista_pedido->exibirTodosPedidos(); // Chama o método para buscar os pedidos
@@ -107,7 +108,7 @@ try {
             // Criar um formulário dinamicamente
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/projetos/contrato_x/app/model/deleteById.php';
+            form.action = '/projetos/crm/app/model/deleteById.php';
             
             // Criar input hidden para o ID
             const input = document.createElement('input');

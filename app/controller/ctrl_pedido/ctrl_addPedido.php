@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/contrato_x/app/model/model_pedido/inserir_pedidos/model_addPedido.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/app/model/model_pedido/inserir_pedidos/model_addPedido.php';
 
 $addPedido = new addPedido();
 

@@ -1,19 +1,69 @@
+/* Reset e estilos base */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     background-color: #f9f9f9;
     color: #333;
+    line-height: 1.6;
+}
+
+/* Tipografia */
+h1, h2 {
+    color: #444;
+    margin-bottom: 20px;
 }
 
 h1 {
     text-align: center;
     margin-top: 20px;
-    color: #444;
 }
 
+p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Links e Navegação */
+a {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.nav-links {
+    text-align: center;
+    margin: 20px 20vh;
+}
+
+.nav-links a {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 10px 10px;
+    color: #007BFF;
+    text-decoration: none;
+    border: 1px solid #007BFF;
+    border-radius: 4px;
+    /* A propriedade 'order' só funciona em flex containers.
+       Para exibir links em ordem alfabética, use JavaScript no HTML.
+       CSS puro não ordena elementos dinamicamente. */
+}
+
+.nav-links a:hover {
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+}
+
+/* Formulários */
 form {
-    max-width: 500px;
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background: #fff;
@@ -31,6 +81,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #666;
 }
 
 input[type="text"],
@@ -38,6 +89,7 @@ input[type="date"],
 input[type="time"],
 input[type="email"],
 input[type="tel"],
+input[type="number"],
 select {
     width: 100%;
     padding: 8px;
@@ -64,14 +116,94 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-a {
-    display: block;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #007BFF;
-    text-decoration: none;
+input[type="reset"] {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
-a:hover {
-    text-decoration: underline;
+input[type="reset"]:hover {
+    background-color: #da190b;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Campos com sugestões */
+.campo-container, 
+.campo-container-produto {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#sugestoes,
+#sugestoes-produto {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.sugestao,
+.sugestaoProduto {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.sugestao:hover,
+.sugestaoProduto:hover {
+    background-color: #f5f5f5;
+}
+
+.sugestao:last-child,
+.sugestaoProduto:last-child {
+    border-bottom: none;
+}
+
+/* PDF */
+.pdf-container {
+    width: 50%;
+    height: 75vh;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+}
+
+.controls {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
