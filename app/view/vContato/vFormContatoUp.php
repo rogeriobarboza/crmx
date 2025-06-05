@@ -10,7 +10,7 @@
 
     <h1>Atualizar contato</h1>
 
-    <form action="app/view/view_cadastro/fnUpContato.php" method="POST">
+    <form action="app/view/vContato/fnUpContato.php" method="POST">
 
     <!-- Form para buscar a empresa -->
         <h2>Buscar Empresa</h2>
@@ -27,7 +27,7 @@
             const termo = input.value.trim();
 
             if (termo.length >= 1) {
-                fetch('app/view/view_cadastro/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
+                fetch('app/view/vContato/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
                     .then(response => response.json())
                     .then(dados => {
                         sugestoes.innerHTML = '';
@@ -90,7 +90,7 @@
             const idEmpresa = document.getElementById('_id_empresa').value; // Pega o ID da empresa selecionada
 
             if (termoContato.length >= 1 && idEmpresa) {
-                fetch('app/view/view_cadastro/fnBuscarContato.php?termoContato=' + encodeURIComponent(termoContato) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
+                fetch('app/view/vContato/fnBuscarContato.php?termoContato=' + encodeURIComponent(termoContato) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
                     .then(response => response.json())
                     .then(dados => {
                         sugestoesContato.innerHTML = '';

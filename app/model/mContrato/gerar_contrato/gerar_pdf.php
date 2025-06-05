@@ -19,8 +19,10 @@ $nome = "João Silva";
 $data = date('d/m/Y');
 $contrato_abc = 'contrato_abc.php';
 // Capturar o HTML gerado
-ob_start(); // Inserir o require aqui, entre ob_start() e ob_get_clean()
-require "../app/model/model_contrato_x/gerar_contrato/$contrato_abc"; // aqui ele executa o PHP dentro do modelo
+ob_start();
+// Inserir o require aqui, entre ob_start() e ob_get_clean()
+require "../app/model/mContrato/gerar_contrato/$contrato_abc";
+// aqui ele executa o PHP dentro do modelo
 $ob_get = ob_get_clean();
 $html = $ob_get; // aqui pega o conteúdo gerado 
 // FIM CONTRATO ===================================

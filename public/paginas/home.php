@@ -58,7 +58,7 @@
         //print_r($info);
         //echo "</pre>";
 
-        include_once '../app/view/view_cadastro/lista_cadastro.php'
+        include_once '../app/view/vContato/lista_cadastro.php'
 
         ?>
 

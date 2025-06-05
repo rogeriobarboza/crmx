@@ -1,6 +1,7 @@
+<?php
 // INÍCIO CONTRATO ===================================
 // HTML do PDF (DomPDF)
-//require_once '../app/model/model_contrato_x/gerar_contrato/contrato_abc.php';
+//require_once '../app/model/mContrato/gerar_contrato/contrato_abc.php';
 // Suas variáveis
 $nome = "João Silva";
 $data = date('d/m/Y');
@@ -109,7 +110,7 @@ $html = <<<HTML
 
             <h1>DAS PARTES</h1>
 
-            <p>De um lado, como CONTRATANTE, Renan Antônio da Silva, RG 423731907, CPF 429.927.548-97, residente e domiciliado na Rua Vinte e Oito de Agosto, 34, Casa 4, Vila São Pedro, São Bernardo do Campo - SP, 09784125, e-mail renanxk2022@gmail.com, telefone 11 95113-8690.
+            <p>De um lado, como CONTRATANTE, Renato Antônio da Silva, RG 423731907, CPF 429.927.548-97, residente e domiciliado na Rua Vinte e Oito de Agosto, 34, Casa 4, Vila São Pedro, São Bernardo do Campo - SP, 09784125, e-mail renanxk2022@gmail.com, telefone 11 95113-8690.
             Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telefone 11 95113-8690.
             </p>
             <p>De outro lado, como CONTRATADA, ROGERIO MORAIS BARBOZA, atuando sob o nome fantasia ABC foto e vídeo, CPF 303.294.908-42, com sede na Rua dos Maristas, 65 - Jardim Santo André, Santo André - SP, 09132-430, telefone (11) 97187-2119, e-mail contato@abcfotoevideo.com.br, website https://abcfotoevideo.com.br.</p>
@@ -128,3 +129,4 @@ $html = <<<HTML
 
 HTML;
 // FIM CONTRATO ===================================
+?>

@@ -8,12 +8,12 @@
 </head>
 <body>
 
-    <h1>Atualizar Pedido</h1>
+    <h1>Atualizar Produto</h1>
 
-    <form action="app/view/vProdutos/fnUpProduto.php" method="POST">
+    <form action="app/view/vProduto/fnUpProduto.php" method="POST">
 
     <!-- Form para buscar a empresa -->
-        <h2>Buscar Contato</h2>
+        <h2>Buscar Empresa</h2>
     <div class="campo-container">
         <input type="text" id="pesquisa" placeholder="Digite o nome..." autocomplete="off">
         <div id="sugestoes"></div>
@@ -27,7 +27,7 @@
             const termo = input.value.trim();
 
             if (termo.length >= 1) {
-                fetch('app/view/vProdutos/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
+                fetch('app/view/vProduto/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
                     .then(response => response.json())
                     .then(dados => {
                         sugestoes.innerHTML = '';
@@ -73,7 +73,7 @@
         <input type="text" id="nome_empresa" name="nome_empresa" readonly><br><br>
 
     <!-- Form para buscar o produto -->
-        <h2>Buscar Pedido</h2>
+        <h2>Buscar Produto</h2>
     <div class="campo-container-produto">
         <input type="text" id="pesquisa-produto" placeholder="Digite o nome..." autocomplete="off">
         <div id="sugestoes-produto"></div>
@@ -88,7 +88,7 @@
             const idEmpresa = document.getElementById('_id_empresa').value; // Pega o ID da empresa selecionada
 
             if (termoProduto.length >= 1 && idEmpresa) {
-                fetch('app/view/vProdutos/fnBuscarProduto.php?termoProduto=' + encodeURIComponent(termoProduto) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
+                fetch('app/view/vProduto/fnBuscarProduto.php?termoProduto=' + encodeURIComponent(termoProduto) + '&idEmpresa=' + encodeURIComponent(idEmpresa))
                     .then(response => response.json())
                     .then(dados => {
                         sugestoesProduto.innerHTML = '';

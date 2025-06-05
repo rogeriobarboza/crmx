@@ -1,6 +1,6 @@
 <?php
 // Listar cadastros
-require_once('../app/model/model_cadastro/listar_cadastros/listar_contatos.php');
+require_once('../app/model/mContato/listar_cadastros/listar_contatos.php');
 
 
 

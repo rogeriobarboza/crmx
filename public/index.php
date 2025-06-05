@@ -21,8 +21,13 @@ if (file_exists($indexPath)) {
 // Captura os valores dos cases
 preg_match_all('/case\s+[\'"]([^\'"]+)[\'"]\s*\:/', $codigo, $matches);
 
+// Aplica css
+echo '<link rel="stylesheet" href="public/assets/css/style.css">';
+// Aplica js
+echo '<script src="public/assets/js/script.js" defer></script>';
+// Conteiner para os links
 echo '<div class="nav-links">';
-// Gera os links em linha ?url=
+// Gera os links em linha dinamicamente ?url=
 if (!empty($matches[1])) {
     foreach ($matches[1] as $case) {
         echo "<a href='{$case}'>".ucfirst($case)."</a>";
@@ -53,58 +58,58 @@ switch ($url) {
     
     
     case 'cadastrar':
-        require_once '../app/view/view_cadastro/form_cadastro.php';
+        require_once '../app/view/vContato/form_cadastro.php';
         break;
 
     case 'atualizar-contato':
-        require_once '../app/view/view_cadastro/vFormContatoUp.php';
+        require_once '../app/view/vContato/vFormContatoUp.php';
         break;
 
     case 'cadastrar-pedido':
         // Redireciona para a página de contato
         
-        require_once '../app/view/view_pedido/form_pedido.php';
+        require_once '../app/view/vPedido/form_pedido.php';
         break;
 
     case 'atualizar-pedido':
         // Redireciona para a página de contato
         
-        require_once '../app/view/view_pedido/fmPedidoUp.php';
+        require_once '../app/view/vPedido/fmPedidoUp.php';
         break;
 
     case 'pedidos':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/view_pedido/lista_pedidos.php';
+        require_once '../app/view/vPedido/lista_pedidos.php';
         break;
     
     case 'transacoes':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/view_transacoes/lista_transacoes.php';
+        require_once '../app/view/vTransacao/lista_transacoes.php';
         break;
     
     case 'produtos':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vProdutos/vListaProd.php';
+        require_once '../app/view/vProduto/vListaProd.php';
         break;
 
     case 'atualizar-produtos':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vProdutos/vFormProdUp.php';
+        require_once '../app/view/vProduto/vFormProdUp.php';
         break;
     
     case 'pacotes':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vPacotes/vListaPac.php';
+        require_once '../app/view/vPacote/vListaPac.php';
         break;
     
     case 'gerar-contrato':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/model/model_contrato_x/gerar_contrato/gerar_pdf.php';
+        require_once '../app/model/mContrato/gerar_contrato/gerar_pdf.php';
         break;
 
     case 'form-contrato':
         // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/view_contrato/form_contrato.php';
+        require_once '../app/view/vContrato/form_contrato.php';
         break;
 
     default:

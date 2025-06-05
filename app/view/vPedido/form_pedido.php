@@ -12,11 +12,11 @@
     <form action="app/controller/ctrl_pedido/ctrl_addPedido.php" method="POST">
         <h2>Pedido</h2>
 
-        <label for="cadastro">Cadastro</label>
-        <select id="cadastro" name="cadastro" required onchange="preencherIdContato(this);">
+        <label for="contato">Contato</label>
+        <select id="contato" name="contato" required onchange="preencherIdContato(this);">
             <option value="">Selecione o Contato</option>
             <?php
-            require_once('../app/model/model_cadastro/listar_cadastros/listar_contatos.php');
+            require_once('../app/model/mContato/listar_cadastros/listar_contatos.php');
             $contatos = new ListarContatos();
             $contatos = $contatos->buscarContatos();
             foreach ($contatos as $contato) {

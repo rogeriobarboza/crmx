@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/app/model/model_cadastro/inserir_cadastros/model_cadastrar.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/app/model/mContato/inserir_cadastros/model_cadastrar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cadastrar = new CadastrarContato();

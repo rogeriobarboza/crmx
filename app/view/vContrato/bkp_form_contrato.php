@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="wcpfth=device-wcpfth, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <script src="public/assets/js/script.js" defer></script>
+    <title>Formulário de Contrato
+    </title>    
 </head>
 <body>
     <form method="POST" action="">

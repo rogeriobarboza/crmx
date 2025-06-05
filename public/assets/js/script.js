@@ -1,3 +1,6 @@
+// Mensagem teste link js
+//alert('Teste: Links ordenados com sucesso!');
+
 // Ordenar Links
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelector('.nav-links');
@@ -19,4 +22,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-alert('Links ordenados com sucesso!');

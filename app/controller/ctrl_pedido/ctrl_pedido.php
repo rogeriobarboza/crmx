@@ -1,7 +1,7 @@
 <?php
 
 // Listar pedidos
-require_once('../app/model/model_pedido/listar_pedidos/listar_pedidos.php');
+require_once('../app/model/mPedido/listar_pedidos/listar_pedidos.php');
 
 class ctrl_pedido {
     private $listarPedidos;

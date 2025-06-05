@@ -24,7 +24,8 @@ try {
         echo "<tr>";
 
         echo "<th>Ações</th>"; // Nova coluna
-        echo "<th>timestamp</th>";
+        echo "<th>criado</th>";
+        echo "<th>modificado</th>";
         echo "<th>_id_contato</th>";
         echo "<th>_id_pedido</th>";
         echo "<th>nome_contato</th>";
@@ -59,7 +60,8 @@ try {
             echo "<td><button class='btn-editar'>Editar</button>
                       <button class='btn-excluir'>Excluir</button>
                   </td>";
-            echo "<td>" . htmlspecialchars($pedido['timestamp'] ?? "Não informado") . "</td>";
+            echo "<td>" . htmlspecialchars($pedido['criado'] ?? "Não informado") . "</td>";
+            echo "<td>" . htmlspecialchars($pedido['modificado'] ?? "Não informado") . "</td>";
             echo "<td>" . htmlspecialchars($pedido['_id_contato'] ?? "Não informado") . "</td>";
             echo "<td class='id-pedido'>" . htmlspecialchars($pedido['_id_pedido'] ?? "Não informado") . "</td>";
             echo "<td>" . htmlspecialchars($pedido['nome_contato'] ?? "Não informado") . "</td>";
