@@ -1,5 +1,6 @@
 <?php
 require '../vendor/autoload.php';
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -17,11 +18,19 @@ $dompdf->setPaper('A4', 'portrait');
 $teste = 'Teste HEREDOC - conteúdo da variavel para o PDF';
 $nome = "João Silva";
 $data = date('d/m/Y');
-$contrato_abc = 'contrato_abc.php';
+$nome_completo = $_POST['nome_completo'] ?? 'Nome Não Informado';
+$descricao_pedido = $_POST['descricao_pedido'] ?? 'Descrição Não Informada';
+
+// HTML do PDF (DomPDF) - FIM CONTRATO ===================================
+// Modelo de contrato - PODE SER DINÂMICO, dependendo do que o usuário escolher
+// Aqui você pode definir o modelo de contrato que deseja gerar
+// Exemplo: 'contrato_abc', 'contrato_xyz', etc.
+$modelo_contrato = $_POST['modelo_contrato'] ?? 'contrato_abc';
 // Capturar o HTML gerado
 ob_start();
 // Inserir o require aqui, entre ob_start() e ob_get_clean()
-require "../app/model/mContrato/gerar_contrato/$contrato_abc";
+require "../app/model/mContrato/gerar_contrato/$modelo_contrato.php";
+//require_once $_SERVER['DOCUMENT_ROOT'] . "/projetos/crm/app/model/mContrato/gerar_contrato/$modelo_contrato.php";
 // aqui ele executa o PHP dentro do modelo
 $ob_get = ob_get_clean();
 $html = $ob_get; // aqui pega o conteúdo gerado 
@@ -46,7 +55,7 @@ $pdfBase64 = base64_encode($pdfContent);
 
 ?>
 
-<!-- HTML da Página -->
+<!-- HTML da Página de visualização do PDF-->
 <!DOCTYPE html>
     <html>
         <head>
@@ -61,6 +70,8 @@ $pdfBase64 = base64_encode($pdfContent);
                         type="application/pdf"
                         width="100%"
                         height="100%"
+                        allowfullscreen="true"
+                        allow="fullscreen"
                     />
                 </div>
                 <div class="controls" style="margin: 10px 0;">

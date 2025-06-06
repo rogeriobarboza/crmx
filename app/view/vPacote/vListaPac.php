@@ -59,9 +59,7 @@ echo "<table border='1'>";
 echo "</table><br><br>";
 
 ?>
-
-<form action="">
-
+<div>
         <label for="pacote">Pacote</label>
         <select name="pacote" id="pacote" onchange="preencherIdContato(this)">
             <option value="">Selecione o Pacote</option>
@@ -70,8 +68,9 @@ echo "</table><br><br>";
                     echo '<option value="' . htmlspecialchars($pac['_id_pacote']) . '"data-detalhar="' . $pac['detalhar_pacote'] .  '">' . $pac['nome_pacote'] . ' - ID: ' . $pac['_id_pacote'] . '</option>';
                 }
             ?>
-        </select>
-        <br><br>
+        </select><br><br>
+
+
         <!-- Substituir o textarea por um div editável -->
         <div id="descricao" contenteditable="true" style="border: 1px solid #ccc; min-height: 100px; padding: 10px;">
         </div>
@@ -99,8 +98,7 @@ echo "</table><br><br>";
                 descricaoElement.style.minHeight = '100px';
             }
         </script>
-
-</form>
+</div>
     
 </body>
 </html>

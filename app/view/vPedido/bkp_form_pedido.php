@@ -104,10 +104,7 @@
                     div.title = item.descr_prod || '';
                     div.addEventListener('click', function () {
                         // Monta a descrição formatada do produto
-                        var clausulaObjeto = 1;
                         const texto = 
-                        `${clausulaObjeto}.` +
-                        `${descricaoPedido.value ? (descricaoPedido.value.split('-----------------------------').length) + '. ' : '1. '}` +
                         `Produto: ${item.nome_produto}\n` +
                         `Categoria: ${item.categoria}\n` +
                         (item.descr_prod ? `Descrição: ${item.descr_prod}\n` : '') +

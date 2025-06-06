@@ -127,7 +127,7 @@ class addPedido {
     // Método para pegar o "id do pedido" após o cadastro do pedido
     public function getIdPedido($_id_contato) {
         
-        $queryIdPedido = "SELECT _id_pedido FROM pedidos WHERE _id_contato = $_id_contato ORDER BY timestamp DESC LIMIT 1";
+        $queryIdPedido = "SELECT _id_pedido FROM pedidos WHERE _id_contato = $_id_contato ORDER BY criado DESC LIMIT 1";
         $stmt = $this->conn->prepare($queryIdPedido);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

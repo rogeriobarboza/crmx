@@ -1,4 +1,4 @@
-   <html>
+<html>
         <head>
             <style>
                 * {font-family: Times New Roman, serif;
@@ -76,6 +76,14 @@
                     font-size: 14px;
                     text-align: justify;
                 }
+
+                #descricao-pedido {
+                    padding-left: 20px; /* Adiciona identação */
+                }
+                
+                #descricao-pedido p {
+                    margin: 5px 0;
+                }
             </style>
         </head>
         <body>
@@ -102,7 +110,7 @@
 
             <h1>DAS PARTES</h1>
 
-            <p>De um lado, como CONTRATANTE, Renan Antônio da Silva, RG 423731907, CPF 429.927.548-97, residente e domiciliado na Rua Vinte e Oito de Agosto, 34, Casa 4, Vila São Pedro, São Bernardo do Campo - SP, 09784125, e-mail renanxk2022@gmail.com, telefone 11 95113-8690.
+            <p>De um lado, como CONTRATANTE, <strong><?=$nome_completo?></strong>, RG 423731907, CPF 429.927.548-97, residente e domiciliado na Rua Vinte e Oito de Agosto, 34, Casa 4, Vila São Pedro, São Bernardo do Campo - SP, 09784125, e-mail renanxk2022@gmail.com, telefone 11 95113-8690.
 Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telefone 11 95113-8690.
 </p>
             <p>De outro lado, como CONTRATADA, ROGERIO MORAIS BARBOZA, atuando sob o nome fantasia ABC foto e vídeo, CPF 303.294.908-42, com sede na Rua dos Maristas, 65 - Jardim Santo André, Santo André - SP, 09132-430, telefone (11) 97187-2119, e-mail contato@abcfotoevideo.com.br, website https://abcfotoevideo.com.br.</p>
@@ -112,6 +120,22 @@ Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telef
             <p>Data de geração: <strong><?= $data ?></strong></p><br><br>
 
             <?= $teste ?>
+
+            <div id="descricao-pedido"><?php 
+            // Primeiro adiciona quebras de linha antes e depois dos hifens
+            $texto_com_quebras = preg_replace('/([-]{2,})/', "\n$1\n", $descricao_pedido);
+            
+            // Depois aplica o negrito aos números e primeira palavra
+            $texto_formatado = preg_replace('/(\d+\.\d+\.\s*)/', '<strong>$1$2</strong>', $texto_com_quebras);
+            
+            // Envolve cada linha em uma tag p para melhor controle do espaçamento
+            $linhas = explode("\n", $texto_formatado);
+            $texto_final = array_map(function($linha) {
+                return trim($linha) ? "<p>$linha</p>" : $linha;
+            }, $linhas);
+            
+            echo implode("\n", $texto_final);
+            ?></div>
 
             
             <!-- Conteudo exemplo:

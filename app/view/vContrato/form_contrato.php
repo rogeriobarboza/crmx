@@ -11,7 +11,7 @@
     <!-- ##### Dados do Contratante ###### -->
     <h1># Dados do contratante</h1>
 
-    <form action="app/view/vContato/fnUpContato.php" method="POST">
+    <form action="gerar-contrato" method="POST">
 
     <!-- Form para buscar a empresa -->
         <h2>Buscar Empresa</h2>
@@ -238,7 +238,7 @@
 
     <!-- Form para buscar o pedido -->
     <h2>Buscar Pedido</h2>
-    <div class="campo-container-produto">
+    <div class="campo-container-pedido">
         <input type="text" id="pesquisa-produto" placeholder="Digite o nome..." autocomplete="off">
         <div id="sugestoes-pedido"></div>
     </div>
@@ -302,7 +302,7 @@
 
         // Esconde sugestões ao clicar fora
         document.addEventListener('click', function (e) {
-            if (!e.target.closest('.campo-container-produto')) {
+            if (!e.target.closest('.campo-container-pedido')) {
                 sugestoesPedido.innerHTML = '';
             }
         });
@@ -323,8 +323,9 @@
         <label for="data_reservada">Data Reservada</label>
         <input type="date" id="data_reservada" name="data_reservada" required><br><br>
 
-        <label for="descricao_pedido">Descrição do Pedido</label>
-        <textarea id="descricao_pedido" name="descricao_pedido" rows="4" required></textarea><br><br>
+        <label for="descricao_pedido">Descrição do Pedido (Objeto do Contrato)</label>
+
+        <textarea id="descricao_pedido" name="descricao_pedido" rows="10" required></textarea><br><br>
 
         <label for="participantes">Participantes</label>
         <input type="text" id="participantes" name="participantes"><br><br>
@@ -378,6 +379,15 @@
         <label for="estimativa_custo">Estimativa de Custo</label>
         <input type="number" id="estimativa_custo" name="estimativa_custo" step="0.01"><br><br>
         <!-- Fim dos dados do pedido -->
+
+        
+        <label for="modelo_contrato">Selecione o modelo de contrato</label>
+        <select id="modelo_contrato" name="modelo_contrato" required>
+            <option value="select_modelo">Selecione um modelo</option>
+            <option value="contrato_abc">Contrato ABC</option>
+            <option value="modelo2">Modelo 2</option>
+            <option value="modelo3">Modelo 3</option>
+        </select><br><br>
 
         <input type="reset" value="Limpar Campos"><br><br>
         <input type="submit" value="Preencher Contrato"><br><br>
