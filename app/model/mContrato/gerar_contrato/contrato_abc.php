@@ -126,7 +126,10 @@ Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telef
             $texto_com_quebras = preg_replace('/([-]{2,})/', "\n$1\n", $descricao_pedido);
             
             // Depois aplica o negrito aos números e primeira palavra
-            $texto_formatado = preg_replace('/(\d+\.\d+\.\s*)/', '<strong>$1$2</strong>', $texto_com_quebras);
+            //$texto_formatado = preg_replace('/(\d+\.\d+\.\s*)/', '<strong>$1$2</strong>', $texto_com_quebras);
+
+            // Depois aplica o negrito aos números e primeira palavra até o hífen
+            $texto_formatado = preg_replace('/^(.*?)\s*-/', '<strong>$1</strong> -', $texto_com_quebras);
             
             // Envolve cada linha em uma tag p para melhor controle do espaçamento
             $linhas = explode("\n", $texto_formatado);

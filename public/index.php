@@ -112,6 +112,31 @@ switch ($url) {
         require_once '../app/view/vContrato/form_contrato.php';
         break;
 
+    case 'view-clausulas':
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vClausulas/vClausulas.php';
+        break;
+
+    case 'AddUpClausulas':
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vClausulas/vAddUpClausulas.php';
+        break;
+
+    case 'view-modelos-contrato':
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vModelosContrato/vMsContrato.php';
+        break;
+
+    case 'AddUpMsContrato':
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vModelosContrato/vAddUpMsContrato.php';
+        break;
+
+    case 'visualizar_modelo_contrato':
+        // Redireciona para view "lista_pedidos.php"]
+        require_once '../app/view/vModelosContrato/visualizar_modelo_contrato.php';
+        break;
+
     default:
         // Página não encontrada
         //header("HTTP/1.0 404 Not Found");

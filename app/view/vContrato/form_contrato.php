@@ -19,6 +19,12 @@
         <input type="text" id="pesquisa" placeholder="Digite o nome..." autocomplete="off">
         <div id="sugestoes"></div>
     </div>
+    
+        <label for="_id_empresa">ID Empresa</label>
+        <input type="number" id="_id_empresa" name="_id_empresa" readonly><br><br>
+
+        <label for="nome_empresa">Nome Empresa</label>
+        <input type="text" id="nome_empresa" name="nome_empresa" readonly><br><br>
 
     <script>
         const input = document.getElementById('pesquisa');
@@ -66,15 +72,7 @@
     </script>
     <br><br>
 
-
-        <label for="_id_empresa">ID Empresa</label>
-        <input type="number" id="_id_empresa" name="_id_empresa" readonly><br><br>
-
-        <label for="nome_empresa">Nome Empresa</label>
-        <input type="text" id="nome_empresa" name="nome_empresa" readonly><br><br>
-
-
-
+    
     <!-- Form para buscar o Contato -->
         <h2>Buscar Contato</h2>
     <div class="campo-container-contato">

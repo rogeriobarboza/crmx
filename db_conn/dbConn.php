@@ -43,18 +43,13 @@ class DbConn {
     }
 
 
-    public function getInfoTablesAndColumns() {
-        $conn = new DbConn();
+} // FIM DA CLASSE DbConn
 
-        $conn->connect();
-        $infoTabelas = $conn->getTablesAndColumns();
-        var_dump($infoTabelas); 
-    }
-
-
-}
-
-
-    
-
-
+// Instância da classe DbConn
+//$dbConn = new DbConn();
+//
+//// Conectar ao banco de dados
+//$conn = $dbConn->connect();
+//
+//// Exibe as tabelas e colunas para depuração
+//var_dump($dbConn->getTablesAndColumns());
