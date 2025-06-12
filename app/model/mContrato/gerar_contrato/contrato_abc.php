@@ -108,7 +108,7 @@
 
             <p>Por este instrumento particular, as partes a seguir nomeadas e no final assinadas, têm entre si, certo e convencionado o contrato de prestação de serviços de FOTOGRAFIA, e ou, FILMAGEM:</p>
 
-            <h1>DAS PARTES</h1>
+            <h1>DAS PARTES (ABc)</h1>
 
             <p>De um lado, como CONTRATANTE, <strong><?=$nome_completo?></strong>, RG 423731907, CPF 429.927.548-97, residente e domiciliado na Rua Vinte e Oito de Agosto, 34, Casa 4, Vila São Pedro, São Bernardo do Campo - SP, 09784125, e-mail renanxk2022@gmail.com, telefone 11 95113-8690.
 Contato para recados: Aline Siqueira, e-mail alinesiqueiraline0@gmail.com, telefone 11 95113-8690.

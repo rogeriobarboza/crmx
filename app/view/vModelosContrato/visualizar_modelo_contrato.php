@@ -16,13 +16,7 @@
     .form-topo {
       margin-bottom: 20px;
     }
-    .pagina-a4 {
-      background: white;
-      width: 210mm;
-      min-height: 297mm;
-      padding: 15mm;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+    /* Removed A4 specific styles */
     h1.modelo-titulo {
       text-align: center;
       margin-top: 0;
@@ -40,11 +34,16 @@
     .clausula.tipo-clausula { margin-left: 0; }
     .clausula.tipo-subclausula { margin-left: 20px; }
     .clausula.tipo-item { margin-left: 40px; }
-    /* Delimitador A4 */
-    
-    
+    #conteudo_modelo {
+      width: 210mm; /* Largura padrão A4 */
+      margin: 0 auto; /* Centraliza horizontalmente */
+      position: relative;
+    }
+
   </style>
+
 </head>
+
 <body>
   <div class="form-topo">
     <label for="modelo">Selecione o modelo:</label>
@@ -52,7 +51,7 @@
       <option value="">-- Escolha --</option>
     </select>
   </div>
-  <div class="pagina-a4" id="visualizacao">
+  <div id="visualizacao">
     <h1 class="modelo-titulo" id="titulo_modelo"></h1>
     <div id="conteudo_modelo"></div>
   </div>
@@ -91,24 +90,7 @@
             div.appendChild(descricao);
             conteudo.appendChild(div);
           });
-          // Aguarda o conteúdo ser renderizado
-          setTimeout(() => {
-            const conteudo = document.getElementById('conteudo_modelo');
-            const totalAltura = conteudo.scrollHeight;
-            const passo = 1122; // ~297mm
-            const qtd = Math.floor(totalAltura / passo);
-            // Remove marcadores anteriores se existirem
-            const marcadoresAntigos = conteudo.querySelectorAll('.page-break-marker');
-            marcadoresAntigos.forEach(m => m.remove());
-            for (let i = 1; i <= qtd; i++) {
-              const marcador = document.createElement('div');
-              marcador.className = 'page-break-marker';
-              marcador.innerHTML = '';
-              // Posiciona no ponto exato
-              marcador.style.top = `${i * passo}px`;
-              conteudo.appendChild(marcador);
-            }
-          }, 100); // Pequeno delay para garantir que o conteúdo foi renderizado
+          // Removed A4 page break marker logic
         });
     }
   </script>

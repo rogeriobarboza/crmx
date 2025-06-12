@@ -112,6 +112,7 @@ $itens = $pdo->query("
 <?php endif; ?>
 
 <form method="post">
+
   <label>Nome do Modelo (digite para buscar ou criar):</label><br>
   <input type="text" name="nome_modelo" id="nome_modelo" autocomplete="off" required>
   <ul id="sugestoes" class="sugestoes" style="display: none;"></ul>
@@ -119,41 +120,41 @@ $itens = $pdo->query("
 
   <h2>Adicionar Cláusulas ao Modelo</h2>
 
-<label>Adicionar Cláusula:</label><br>
-<select id="select_clausula">
-  <option value="">-- Escolha --</option>
-  <?php foreach ($clausulas as $c): ?>
-    <option value="<?= $c['id'] ?>" data-titulo="<?= htmlspecialchars($c['titulo']) ?>" data-descricao="" data-ref="<?= $c['nome_ref'] ?>">
-      <?= $c['titulo'] ?> (ref: <?= $c['nome_ref'] ?>)
-    </option>
-  <?php endforeach; ?>
-</select>
-<button type="button" onclick="adicionarSelecionada('clausula')">➕</button><br><br>
+  <label>Adicionar Cláusula:</label><br>
+  <select id="select_clausula">
+    <option value="">-- Escolha --</option>
+    <?php foreach ($clausulas as $c): ?>
+      <option value="<?= $c['id'] ?>" data-titulo="<?= htmlspecialchars($c['titulo']) ?>" data-descricao="" data-ref="<?= $c['nome_ref'] ?>">
+        <?= $c['titulo'] ?> (ref: <?= $c['nome_ref'] ?>)
+      </option>
+    <?php endforeach; ?>
+  </select>
+  <button type="button" onclick="adicionarSelecionada('clausula')">➕</button><br><br>
 
-<label>Adicionar Subcláusula:</label><br>
-<select id="select_subclausula">
-  <option value="">-- Escolha --</option>
-  <?php foreach ($subclausulas as $s): ?>
-    <option value="<?= $s['id'] ?>" data-titulo="<?= htmlspecialchars($s['titulo']) ?>" data-descricao="" data-ref="<?= $s['nome_ref'] ?>" data-pai="<?= htmlspecialchars($s['pai']) ?>">
-      <?= $s['titulo'] ?> (ref: <?= $s['nome_ref'] ?>) — Cláusula: <?= $s['pai'] ?>
-    </option>
-  <?php endforeach; ?>
-</select>
-<button type="button" onclick="adicionarSelecionada('subclausula')">➕</button><br><br>
+  <label>Adicionar Subcláusula:</label><br>
+  <select id="select_subclausula">
+    <option value="">-- Escolha --</option>
+    <?php foreach ($subclausulas as $s): ?>
+      <option value="<?= $s['id'] ?>" data-titulo="<?= htmlspecialchars($s['titulo']) ?>" data-descricao="" data-ref="<?= $s['nome_ref'] ?>" data-pai="<?= htmlspecialchars($s['pai']) ?>">
+        <?= $s['titulo'] ?> (ref: <?= $s['nome_ref'] ?>) — Cláusula: <?= $s['pai'] ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+  <button type="button" onclick="adicionarSelecionada('subclausula')">➕</button><br><br>
 
-<label>Adicionar Item:</label><br>
-<select id="select_item">
-  <option value="">-- Escolha --</option>
-  <?php foreach ($itens as $i): ?>
-    <option value="<?= $i['id'] ?>" data-titulo="<?= htmlspecialchars($i['titulo']) ?>" data-descricao="" data-ref="<?= $i['nome_ref'] ?>" data-pai="<?= htmlspecialchars($i['pai']) ?>">
-      <?= $i['titulo'] ?> (ref: <?= $i['nome_ref'] ?>) — Subcláusula: <?= $i['pai'] ?>
-    </option>
-  <?php endforeach; ?>
-</select>
-<button type="button" onclick="adicionarSelecionada('item')">➕</button>
+  <label>Adicionar Item:</label><br>
+  <select id="select_item">
+    <option value="">-- Escolha --</option>
+    <?php foreach ($itens as $i): ?>
+      <option value="<?= $i['id'] ?>" data-titulo="<?= htmlspecialchars($i['titulo']) ?>" data-descricao="" data-ref="<?= $i['nome_ref'] ?>" data-pai="<?= htmlspecialchars($i['pai']) ?>">
+        <?= $i['titulo'] ?> (ref: <?= $i['nome_ref'] ?>) — Subcláusula: <?= $i['pai'] ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+  <button type="button" onclick="adicionarSelecionada('item')">➕</button>
 
 
-  <h2>Cláusulas do Modelo (arraste para ordenar)</h2>
+    <h2>Cláusulas do Modelo (arraste para ordenar)</h2>
 
   <div id="clausulas-modelo" class="lista" aria-placeholder="Adicione e arraste aqui">
     <p style="font-style: italic; font-family: 'Times New Roman', Times, serif;">Cláusulas adicionadas</p>

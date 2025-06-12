@@ -4,15 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Pedidos</title>
-    <link rel="stylesheet" href="public/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="public/assets/css/style.css"> -->
+    <style>
+        .campo-container-pedido {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #sugestoes-pedido {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            z-index: 1000;
+        }
+
+        .sugestaoPedido {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .sugestaoPedido:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Cadastro Pedidos</h1>
+    <h1>Form Pedidos</h1>
 
-    <form action="app/controller/ctrl_pedido/ctrl_addPedido.php" method="POST">
+    <form id="formPedido" method="POST">
         <h2>Pedido</h2>
 
-        <label for="contato">Contato</label>
+        <label for="buscar_pedido">Buscar Pedido</label>
+        <div class="campo-container-pedido">
+            <input type="text" id="buscar_pedido" name="buscar_pedido" autocomplete="off">
+            <div id="sugestoes-pedido"></div>
+        </div>
+
+        <label for="titulo_evento">Título do Evento/Pedido</label>
+        <input type="text" id="titulo_evento" name="titulo_evento" required><br><br>
+
+        <label for="contato">Buscar Contato</label>
         <select id="contato" name="contato" required onchange="preencherIdContato(this);">
             <option value="">Selecione o Contato</option>
             <?php
@@ -52,9 +90,6 @@
             }
         </script>
 
-        <label for="produto_servico">Produto/Serviço</label>
-        <input type="text" id="produto_servico" name="produto_servico" required><br><br>
-
         <label for="seguimento">Seguimento</label>
         <select id="seguimento" name="seguimento" required>
             <option value="casamento">Casamento</option>
@@ -64,14 +99,11 @@
             <option value="outro">Outro</option>
         </select><br><br>
 
-        <label for="titulo_evento">Título do Evento</label>
-        <input type="text" id="titulo_evento" name="titulo_evento" required><br><br>
-
         <label for="data_reservada">Data Reservada</label>
         <input type="date" id="data_reservada" name="data_reservada" required><br><br>
 
         <!-- Lógica para buscar e adicionar produto/serviço -->
-        <label for="descricao_pedido">Descrição do Pedido (Objeto do Contrato)</label>
+        <label for="descricao_pedido">Buscar itens/serviços/produtos (Objeto do Contrato)</label>
 
         <p>Buscar Item</p>
         <div class="campo-container-item">
@@ -104,17 +136,15 @@
                     div.title = item.descr_prod || '';
                     div.addEventListener('click', function () {
                         // Monta a descrição formatada do produto
-                        var clausulaObjeto = 1;
-                        const texto = 
-                        `${clausulaObjeto}.` +
-                        `${descricaoPedido.value ? (descricaoPedido.value.split('-----------------------------').length) + '. ' : '1. '}` +
+                        const texto =
                         `Produto: ${item.nome_produto}\n` +
                         `Categoria: ${item.categoria}\n` +
                         (item.descr_prod ? `Descrição: ${item.descr_prod}\n` : '') +
                         (item.detalhar_prod ? `Detalhes: ${item.detalhar_prod}\n` : '') +
                         (item.preco_prod ? `Preço: R$ ${parseFloat(item.preco_prod).toFixed(2)}\n` : '') +
                         `Status: ${item.status}\n` +
-                        `-----------------------------\n`;
+                        `---\n`;
+                        // Bkp 26 hiféns: --------------------------
 
                         // Adiciona ao textarea (acumula produtos)
                         if (descricaoPedido.value.trim() !== '') {
@@ -204,8 +234,142 @@
         <label for="info_adicional">Informações Adicionais</label>
         <input type="text" id="info_adicional" name="info_adicional"></label>
 
+        <!-- Adicione um campo hidden para armazenar o ID do pedido -->
+        <input type="hidden" id="id_pedido" name="id_pedido">
 
-        <input type="submit" value="Cadastrar Pedido">
+        <!-- Botões de ação -->
+        <button type="button" id="btnCadastrar" onclick="cadastrarPedido()">Cadastrar Pedido</button>
+        <button type="button" id="btnAtualizar" onclick="atualizarPedido()">Atualizar Pedido</button>
+        <button type="button" id="btnDeletar" onclick="deletarPedido()">Deletar Pedido</button>
+
+        <script>
+        // Função para cadastrar novo pedido
+        function cadastrarPedido() {
+            if (!validarCamposObrigatorios()) {
+                alert('Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+            
+            const formData = new FormData(document.getElementById('formPedido'));
+            enviarPedido('api/apiCreate/apiCreatePedido.php', formData, 'Pedido cadastrado com sucesso!');
+        }
+
+        // Função para atualizar pedido
+        function atualizarPedido() {
+            if (!validarCamposObrigatorios()) {
+                alert('Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+
+            const idPedido = document.getElementById('id_pedido').value;
+            if (!idPedido) {
+                alert('Selecione um pedido para atualizar');
+                return;
+            }
+            
+            const formData = new FormData(document.getElementById('formPedido'));
+            enviarPedido('api/apiUpdate/apiUpdatePedido.php', formData, 'Pedido atualizado com sucesso!');
+        }
+
+        // Função genérica para enviar pedido
+        function enviarPedido(url, formData, mensagemSucesso) {
+            const btnClicado = event.target;
+            btnClicado.disabled = true;
+            btnClicado.textContent = 'Enviando...';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    alert(mensagemSucesso);
+                    window.location.href = 'lista_pedidos.php';
+                } else {
+                    alert('Erro: ' + data.mensagem);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao processar o pedido');
+            })
+            .finally(() => {
+                btnClicado.disabled = false;
+                btnClicado.textContent = btnClicado.textContent.replace('Enviando...', 
+                    btnClicado.id === 'btnCadastrar' ? 'Cadastrar Pedido' : 'Atualizar Pedido');
+            });
+        }
+
+        const inputBuscarPedido = document.getElementById('buscar_pedido');
+        const sugestoesPedido = document.getElementById('sugestoes-pedido');
+
+        // Modifique a função que preenche os dados do pedido na busca
+        inputBuscarPedido.addEventListener('keyup', function() {
+            const termo = inputBuscarPedido.value.trim();
+
+            if (termo.length >= 1) {
+                fetch('api/apiRead/apiBuscarPedido.php?termo=' + encodeURIComponent(termo))
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro na resposta do servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        sugestoesPedido.innerHTML = '';
+
+                        if (data.status === 'sucesso' && Array.isArray(data.dados)) {
+                            if (data.dados.length > 0) {
+                                data.dados.forEach(pedido => {
+                                    const div = document.createElement('div');
+                                    div.classList.add('sugestaoPedido');
+                                    div.textContent = `ID: ${pedido._id} - ${pedido.titulo_evento} - ${pedido.nome_contato || 'Sem contato'}`;
+                                    
+                                    div.addEventListener('click', function() {
+                                        preencherFormularioPedido(pedido);
+                                    });
+                                    
+                                    sugestoesPedido.appendChild(div);
+                                });
+                            } else {
+                                sugestoesPedido.innerHTML = '<div class="sugestaoPedido">Nenhum pedido encontrado</div>';
+                            }
+                        } else {
+                            throw new Error('Formato de dados inválido');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar pedidos:', error);
+                        sugestoesPedido.innerHTML = '<div class="sugestaoPedido">Erro ao buscar pedidos: ' + error.message + '</div>';
+                    });
+            } else {
+                sugestoesPedido.innerHTML = '';
+            }
+        });
+
+        // Função auxiliar para preencher o formulário
+        function preencherFormularioPedido(pedido) {
+            document.getElementById('id_pedido').value = pedido._id;
+            document.getElementById('titulo_evento').value = pedido.titulo_evento;
+            document.getElementById('_id_contato').value = pedido._id_contato;
+            document.getElementById('nome_contato').value = pedido.nome_contato;
+            document.getElementById('seguimento').value = pedido.seguimento;
+            document.getElementById('data_reservada').value = pedido.data_reservada;
+            document.getElementById('descricao_pedido').value = pedido.descricao_pedido;
+            document.getElementById('participantes').value = pedido.participantes;
+            document.getElementById('observacoes').value = pedido.observacoes;
+            document.getElementById('numero_convidados').value = pedido.numero_convidados;
+            document.getElementById('horario_convite').value = pedido.horario_convite;
+            document.getElementById('horario_inicio').value = pedido.horario_inicio;
+            document.getElementById('valor_original').value = pedido.valor_original;
+            document.getElementById('valor_desconto').value = pedido.valor_desconto;
+            document.getElementById('valor_total').value = pedido.valor_total;
+            
+            sugestoesPedido.innerHTML = '';
+            inputBuscarPedido.value = '';
+        }
+        </script>
     </form>
     
 </body>

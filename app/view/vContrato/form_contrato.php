@@ -378,13 +378,22 @@
         <input type="number" id="estimativa_custo" name="estimativa_custo" step="0.01"><br><br>
         <!-- Fim dos dados do pedido -->
 
-        
+    <!-- -->
         <label for="modelo_contrato">Selecione o modelo de contrato</label>
         <select id="modelo_contrato" name="modelo_contrato" required>
-            <option value="select_modelo">Selecione um modelo</option>
-            <option value="contrato_abc">Contrato ABC</option>
-            <option value="modelo2">Modelo 2</option>
-            <option value="modelo3">Modelo 3</option>
+            <option value="">Selecione um modelo</option>
+            <?php
+                $pdo = new PDO("mysql:host=localhost;dbname=contrato_x", "root", "");
+                
+                $stmt = $pdo->prepare("SELECT id_modelo, nome_modelo FROM modelos_contratos ORDER BY nome_modelo");
+                $stmt->execute();
+                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($res as $modelo) {
+                    echo '<option value="' . htmlspecialchars($modelo['id_modelo']) . '">ID: ' . htmlspecialchars($modelo['id_modelo']) . " - "  . htmlspecialchars($modelo['nome_modelo']) . '</option>';
+                }
+            ?>
+            
         </select><br><br>
 
         <input type="reset" value="Limpar Campos"><br><br>

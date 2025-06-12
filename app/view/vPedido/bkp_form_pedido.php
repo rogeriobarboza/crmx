@@ -104,14 +104,15 @@
                     div.title = item.descr_prod || '';
                     div.addEventListener('click', function () {
                         // Monta a descrição formatada do produto
-                        const texto = 
+                        const texto =
                         `Produto: ${item.nome_produto}\n` +
                         `Categoria: ${item.categoria}\n` +
                         (item.descr_prod ? `Descrição: ${item.descr_prod}\n` : '') +
                         (item.detalhar_prod ? `Detalhes: ${item.detalhar_prod}\n` : '') +
                         (item.preco_prod ? `Preço: R$ ${parseFloat(item.preco_prod).toFixed(2)}\n` : '') +
                         `Status: ${item.status}\n` +
-                        `-----------------------------\n`;
+                        `---\n`;
+                        // Bkp 26 hiféns: --------------------------
 
                         // Adiciona ao textarea (acumula produtos)
                         if (descricaoPedido.value.trim() !== '') {
@@ -203,6 +204,8 @@
 
 
         <input type="submit" value="Cadastrar Pedido">
+        <input type="submit" value="Atualizar Pedido">
+        <input type="submit" value="Deletar Pedido">
     </form>
     
 </body>

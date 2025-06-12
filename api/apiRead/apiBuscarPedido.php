@@ -1,37 +1,41 @@
 <?php
-
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
-// Conexão com o banco
-$host = 'localhost';
-$dbName = 'contrato_x';
-$username = 'root';
-$password = '';
-
-$pdo = new PDO("mysql:host={$host};dbname={$dbName}", $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-$idContato = $_GET['_id_contato'] ?? '';
-$termoPedido = $_GET['termoPedido'] ?? '';
-
-if ($idContato && $termoPedido) {
-    $sql = "SELECT *
-            FROM pedidos 
-            WHERE produto_servico LIKE :termo 
-            AND _id_contato = :idContato
+try {
+    require_once '../../config/database.php';
+    
+    if (!isset($_GET['termo'])) {
+        throw new Exception('Termo de busca não fornecido');
+    }
+    
+    $termo = $_GET['termo'];
+    $pdo = new PDO("mysql:host={$host};dbname={$dbName}", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql = "SELECT p.*, c.nome_completo as nome_contato 
+            FROM pedidos p 
+            LEFT JOIN contatos c ON p._id_contato = c._id_contato 
+            WHERE p.titulo_evento LIKE :termo 
+            OR p._id LIKE :termo 
+            OR c.nome_completo LIKE :termo 
             LIMIT 10";
             
     $stmt = $pdo->prepare($sql);
-    $termo = "%{$termoPedido}%";
-    $stmt->bindParam(':termo', $termo, PDO::PARAM_STR);
-    $stmt->bindParam(':idContato', $idContato, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->execute(['termo' => '%' . $termo . '%']);
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    echo json_encode($pedidos);
-} else {
-    echo json_encode([]);
+    echo json_encode([
+        'status' => 'sucesso',
+        'dados' => $resultados
+    ]);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'status' => 'erro',
+        'mensagem' => $e->getMessage()
+    ]);
 }
 ?>
