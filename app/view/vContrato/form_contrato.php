@@ -35,6 +35,7 @@
 
             if (termo.length >= 1) {
                 fetch('app/view/vContato/fnBuscarEmpresa.php?termo=' + encodeURIComponent(termo))
+                    // response: Não é um nome fixo, você pode escolher qualquer nome para esse parâmetro. Ele representa o objeto de resposta retornado pela função fetch(). Por padrão, muitos exemplos usam "response" para indicar que ali está a resposta da requisição HTTP feita ao servidor.
                     .then(response => response.json())
                     .then(dados => {
                         sugestoes.innerHTML = '';
