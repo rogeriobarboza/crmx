@@ -46,6 +46,8 @@
   </style>
 </head>
 <body>
+  <?php include '../public/navLinks.php'; ?>
+  
   <div class="form-topo">
     <label for="modelo">Selecione o modelo:</label>
     <select id="modelo" onchange="carregarModelo(this.value)">
@@ -58,7 +60,7 @@
   </div>
   <script>
     // Carrega a lista de modelos
-    fetch('app/view/vModelosContrato/buscar_modelos.php')
+    fetch('api/apiRead/buscar_modelos.php')
       .then(r => r.json())
       .then(data => {
         const select = document.getElementById('modelo');
@@ -73,7 +75,7 @@
     // Carrega o conteúdo do modelo
     function carregarModelo(id) {
       if (!id) return;
-      fetch('app/view/vModelosContrato/carregar_modelo.php?id=' + id)
+      fetch('api/apiRead/carregar_modelo.php?id=' + id)
         .then(r => r.json())
         .then(data => {
           document.getElementById('titulo_modelo').textContent = data.nome_modelo;

@@ -2,7 +2,7 @@
 
 class DbConn {
     private $host = 'localhost';
-    private $dbName = 'contrato_x';
+    private $dbName = 'crmx';
     private $username = 'root';
     private $password = '';
     private $conn;

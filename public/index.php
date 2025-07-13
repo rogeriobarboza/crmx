@@ -9,132 +9,81 @@ $url = isset($_GET['url']) && !empty($_GET['url']) ? $_GET['url'] : 'home';
 
 $url = trim($url, '/'); // Remove as barras no início e no final da URL
 
-// Lê o conteúdo do arquivo index.php
-$codigo = '';
-$indexPath = __FILE__; // Corrigido para ler o próprio arquivo atual
-if (file_exists($indexPath)) {
-    $codigo = file_get_contents($indexPath);
-} else {
-    echo "Arquivo index.php não encontrado.<br>";
-}
-
-// Captura os valores dos cases
-preg_match_all('/case\s+[\'"]([^\'"]+)[\'"]\s*\:/', $codigo, $matches);
-
-// Aplica css
-echo '<link rel="stylesheet" href="public/assets/css/style.css">';
-// Aplica js
-echo '<script src="public/assets/js/script.js" defer></script>';
-// Conteiner para os links
-echo '<div class="nav-links">';
-// Gera os links em linha dinamicamente ?url=
-if (!empty($matches[1])) {
-    foreach ($matches[1] as $case) {
-        echo "<a href='{$case}'>".ucfirst($case)."</a>";
-    }
-    echo "<br>";
-} else {
-    echo "Nenhum case encontrado.";
-}
-echo '</div>';
-
 // Define as rotas usando switch
 switch ($url) {
+    
     case '':
-        require_once '../public/paginas/home.php';
+        require_once '../app/view/vContato/contatos.php';
         break;
-
+    
     case 'home':
-        require_once '../public/paginas/home.php';
-        break;
-
-    case 'sobre':
-        require_once '../public/paginas/sobre.php';
-        break;
-
-    case 'contato':
-        require_once '../public/paginas/contato.php';
+        require_once '../app/view/vContato/lista-contatos.php';
         break;
     
+    case 'lista-contatos':
+        require_once '../app/view/vContato/lista-contatos.php';
+        break;
     
-    case 'cadastrar':
-        require_once '../app/view/vContato/form_cadastro.php';
+    case 'gerenciar-contato':
+        require_once '../app/view/vContato/gerenciar_contato.php';
         break;
 
-    case 'atualizar-contato':
-        require_once '../app/view/vContato/vFormContatoUp.php';
+    case 'gerenciar-pedido':
+        // Redireciona para view "form_pedido.php"]
+        require_once '../app/view/vPedido/gerenciar_pedido.php';
         break;
 
-    case 'cadastrar-pedido':
-        // Redireciona para a página de contato
-        
-        require_once '../app/view/vPedido/form_pedido.php';
-        break;
-
-    case 'atualizar-pedido':
-        // Redireciona para a página de contato
-        
-        require_once '../app/view/vPedido/fmPedidoUp.php';
-        break;
-
-    case 'pedidos':
+    case 'lista-pedidos':
         // Redireciona para view "lista_pedidos.php"]
         require_once '../app/view/vPedido/lista_pedidos.php';
         break;
     
-    case 'transacoes':
-        // Redireciona para view "lista_pedidos.php"]
+    case 'lista-transacoes':
         require_once '../app/view/vTransacao/lista_transacoes.php';
         break;
     
-    case 'produtos':
-        // Redireciona para view "lista_pedidos.php"]
+    case 'lista-produtos':
         require_once '../app/view/vProduto/vListaProd.php';
         break;
 
-    case 'atualizar-produtos':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vProduto/vFormProdUp.php';
+    case 'gerenciar-produto':
+        require_once '../app/view/vProduto/vGerenciarProduto.php';
         break;
     
-    case 'pacotes':
-        // Redireciona para view "lista_pedidos.php"]
+    case 'lista-pacotes':
         require_once '../app/view/vPacote/vListaPac.php';
         break;
     
     case 'gerar-contrato':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/model/mContrato/gerar_contrato/gerar_pdf.php';
+        require_once '../api/mContrato/gerar_pdf.php';
         break;
 
     case 'form-contrato':
-        // Redireciona para view "lista_pedidos.php"]
         require_once '../app/view/vContrato/form_contrato.php';
         break;
 
-    case 'view-clausulas':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vClausulas/vClausulas.php';
+    case 'lista-clausulas':
+        require_once '../app/view/vClausulas/lista-clausulas.php';
         break;
 
-    case 'AddUpClausulas':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vClausulas/vAddUpClausulas.php';
+    case 'gerenciar-clausulas.php':
+        require_once '../app/view/vClausulas/gerenciar-clausulas.php';
         break;
 
-    case 'view-modelos-contrato':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vModelosContrato/vMsContrato.php';
+    case 'lista-modelos-contrato':
+        require_once '../app/view/vModelosContrato/lista_modelos_contrato.php';
         break;
 
-    case 'AddUpMsContrato':
-        // Redireciona para view "lista_pedidos.php"]
-        require_once '../app/view/vModelosContrato/vAddUpMsContrato.php';
+    case 'gerenciar-modelos-contrato':
+        require_once '../app/view/vModelosContrato/gerenciar_modelos_contrato.php';
         break;
 
-    case 'visualizar_modelo_contrato':
-        // Redireciona para view "lista_pedidos.php"]
+    case 'visualizar-modelo-contrato':
         require_once '../app/view/vModelosContrato/visualizar_modelo_contrato.php';
+        break;
+
+    case 'visualizar-modelo-contrato-A4':
+        require_once '../app/view/vModelosContrato/visualizar_modelo_contrato-A4.php';
         break;
 
     default:

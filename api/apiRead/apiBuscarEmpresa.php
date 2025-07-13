@@ -6,13 +6,13 @@ header('Content-Type: application/json');
 
 // Conexão com o banco
 $host = 'localhost';
-$dbName = 'contrato_x';
+$dbName = 'crmx';
 $username = 'root';
 $password = '';
 $conn;
 
 $pdo = new PDO("mysql:host={$host};dbname={$dbName}", $username, $password);
-//$pdo = new PDO("mysql:host=localhost;dbname=contrato_x;", "root", "");
+//$pdo = new PDO("mysql:host=localhost;dbname=crmx;", "root", "");
 
 $termo = $_GET['termo'] ?? '';
 

@@ -13,6 +13,10 @@ $conn = new dbConn();
 </head>
 
 <body>
+    
+    <?php include '../public/navLinks.php'; ?>
+
+    <h1>Lista Pacotes</h1>
 
 <?php
 // Traz todos os pacotes com uma consulta SQL simplificada

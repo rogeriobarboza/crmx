@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 // Conexão com o banco
 $host = 'localhost';
-$dbName = 'contrato_x';
+$dbName = 'crmx';
 $username = 'root';
 $password = '';
 

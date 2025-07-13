@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 // Conexão com o banco
 $host = 'localhost';
-$dbName = 'contrato_x';
+$dbName = 'crmx';
 $username = 'root';
 $password = '';
 
@@ -15,10 +15,14 @@ $termoProduto = $_GET['termoContato'] ?? '';
 $idEmpresa = $_GET['idEmpresa'] ?? '';
 
 if ($termoProduto && $idEmpresa) {
-    $sql = "SELECT *
-            FROM contatos 
-            WHERE _id_contato LIKE :termo AND _id_empresa = :idEmpresa
-            OR nome_completo LIKE :termo AND _id_empresa = :idEmpresa
+    // ##### CONSULTA SQL MODIFICADA #####
+    // A consulta agora une 'contatos' (c) com 'empresas_contatos' (ec)
+    // para encontrar os contatos associados ao '_id_empresa' fornecido.
+    $sql = "SELECT c.*
+            FROM contatos c
+            INNER JOIN empresas_contatos ec ON c._id_contato = ec._id_contato
+            WHERE ec._id_empresa = :idEmpresa
+            AND (c.nome_completo LIKE :termo OR c._id_contato LIKE :termo)
             LIMIT 10";
             
     $stmt = $pdo->prepare($sql);

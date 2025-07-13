@@ -2,20 +2,28 @@
 
 header('Content-Type: application/json');
 
-// Conexão com o banco
-$host = 'localhost';
-$dbName = 'contrato_x';
-$username = 'root';
-$password = '';
+// Usa a classe de conexão centralizada
+require_once('../../db_conn/dbConn.php');
+$db = new DbConn();
+$pdo = $db->connect();
 
-$pdo = new PDO("mysql:host={$host};dbname={$dbName}", $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+// Recebe parâmetros
 $termoProduto = $_GET['termoProduto'] ?? '';
 $idEmpresa = $_GET['idEmpresa'] ?? '';
 
 if ($termoProduto && $idEmpresa) {
-    $sql = "SELECT *
+    $sql = "SELECT 
+                criado,
+                modificado,
+                _id_empresa,
+                _id_produto,
+                categoria,
+                nome_produto,
+                descr_prod,
+                detalhar_prod,
+                custo_prod,
+                preco_prod,
+                status
             FROM produtos 
             WHERE nome_produto LIKE :termo 
             AND _id_empresa = :idEmpresa

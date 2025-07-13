@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dados Contrado</title>
+    <title>Gerenciar Contato</title>
     <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
 <body>
@@ -11,9 +11,9 @@
 <?php include '../public/navLinks.php'; ?>
 
     <!-- ##### Dados do Contratante ###### -->
-    <h1># Dados do contratante</h1>
+    <h1>Gerenciar Contato</h1>
 
-    <form action="gerar-contrato" method="POST">
+    <form method="POST">
 
     <!-- Form para buscar a empresa -->
         <h2>Buscar Empresa</h2>
@@ -107,7 +107,7 @@
                                 div.addEventListener('click', function () {
                                     inputContato.value = item.nome_completo;
                                     // Preenchendo todos os campos do formulário
-                                    document.getElementById('_id_empresa').value = item._id_empresa;
+                                    //document.getElementById('_id_empresa').value = item._id_empresa;
                                     document.getElementById('_id_contato').value = item._id_contato;
                                     document.getElementById('tipo_contato').value = item.tipo_contato;
                                     document.getElementById('nome_completo').value = item.nome_completo;
@@ -152,10 +152,10 @@
     </script>
     <br><br>
 
-        <label for="_id_contato">ID Contato</label>
+        8<label for="_id_contato">ID Contato</label>
         <input type="number" id="_id_contato" name="_id_contato" readonly><br><br>
 
-        <label for="tipo_contato">Tipo de Cadastro</label>
+        <label for="tipo_contato">Tipo de Contato</label>
         <select id="tipo_contato" name="tipo_contato" required>
             <option value="cliente">Cliente</option>
             <option value="colaborador">Colaborador</option>
@@ -232,171 +232,142 @@
         <label for="origem">Como chegou até nós</label>
         <input type="text" id="origem" name="origem" placeholder="Como chegou até nós"><br><br>
         <br><br>
-        <!-- ------------------------- -->
+        
+        <!-- ######## -->
 
+        <input type="submit" id="btnCadastrarContato" value="Cadastrar Contato"><br><br>
 
-    <!-- ##### Dados do Pedido ###### -->
-    <h1># Dados do Pedido</h1>
+            <script>
+            // Seleciona o formulário
+            const formContato = document.querySelector('form');
+            const btnCadastrar = document.getElementById('btnCadastrarContato');
 
-    <!-- Form para buscar o pedido -->
-    <h2>Buscar Pedido</h2>
-    <div class="campo-container-pedido">
-        <input type="text" id="pesquisa-produto" placeholder="Digite o nome..." autocomplete="off">
-        <div id="sugestoes-pedido"></div>
-    </div>
+            // Intercepta o submit do formulário
+            formContato.addEventListener('submit', function(e) {
+                // Verifica se o botão clicado foi o "Cadastrar Contato"
+                if (document.activeElement === btnCadastrar) {
+                    e.preventDefault();
 
-    <script>
-        const inputPedido = document.getElementById('pesquisa-produto');
-        const sugestoesPedido = document.getElementById('sugestoes-pedido');
+                    // Monta os dados do formulário
+                    const formData = new FormData(formContato);
 
-        inputPedido.addEventListener('keyup', function () {
-            const termoPedido = inputPedido.value.trim();
-            const idContato = document.getElementById('_id_contato').value; // Pega o ID da empresa selecionada
-
-            if (termoPedido.length >= 1 && idContato) {
-                fetch('api/apiRead/apiBuscarPedido.php?termoPedido=' + encodeURIComponent(termoPedido) + '&_id_contato=' + encodeURIComponent(idContato))
-                    .then(response => response.json())
-                    .then(dados => {
-                        sugestoesPedido.innerHTML = '';
-
-                        if (dados.dados && dados.dados.length > 0) {
-                            dados.dados.forEach(item => {
-                                const div = document.createElement('div');
-                                div.classList.add('sugestaoPedido');
-                                div.textContent = "ID: " + item._id_pedido + ' - ' + item.titulo_pedido;
-                                div.addEventListener('click', function () {
-                                    inputPedido.value = item.titulo_pedido;
-                                    // Preenchendo todos os campos do formulário
-                                    document.getElementById('_id_pedido').value = item._id_pedido;
-                                    document.getElementById('seguimento').value = item.seguimento;
-                                    document.getElementById('titulo_pedido').value = item.titulo_pedido;
-                                    document.getElementById('data_reservada').value = item.data_reservada;
-                                    document.getElementById('descricao_pedido').value = item.descricao_pedido;
-                                    document.getElementById('participantes').value = item.participantes;
-                                    document.getElementById('observacoes').value = item.observacoes;
-                                    document.getElementById('numero_convidados').value = item.numero_convidados;
-                                    document.getElementById('horario_convite').value = item.horario_convite;
-                                    document.getElementById('horario_inicio').value = item.horario_inicio;
-                                    document.getElementById('valor_original').value = item.valor_original;
-                                    document.getElementById('valor_desconto').value = item.valor_desconto;
-                                    document.getElementById('valor_total').value = item.valor_total;
-                                    document.getElementById('forma_pagamento').value = item.forma_pagamento;
-                                    document.getElementById('numero_pagamentos').value = item.numero_pagamentos;
-                                    document.getElementById('valor_pagamento_1').value = item.valor_pagamento_1;
-                                    document.getElementById('data_pagamento_1').value = item.data_pagamento_1;
-                                    document.getElementById('vencimento_mensal').value = item.vencimento_mensal;
-                                    document.getElementById('reserva_equipe').value = item.reserva_equipe;
-                                    document.getElementById('estimativa_custo').value = item.estimativa_custo;
-                                    sugestoesPedido.innerHTML = '';
-                                });
-                                sugestoesPedido.appendChild(div);
-                            });
+                    fetch('api/apiCreate/apiCreateContato.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(resp => resp.json())
+                    .then(json => {
+                        if (json.status === 'sucesso') {
+                            alert('Contato cadastrado com sucesso! ID: ' + json._id_contato);
+                            formContato.reset();
                         } else {
-                            sugestoesPedido.innerHTML = '<div class="sugestaoPedido">Nenhum resultado encontrado</div>';
+                            alert('Erro ao cadastrar contato: ' + (json.mensagem || 'Erro desconhecido'));
                         }
+                    })
+                    .catch(err => {
+                        alert('Erro na requisição: ' + err);
                     });
-            } else {
-                sugestoesPedido.innerHTML = idContato ? '' : '<div class="sugestaoPedido">Selecione uma empresa primeiro</div>';
-            }
-        });
-
-        // Esconde sugestões ao clicar fora
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.campo-container-pedido')) {
-                sugestoesPedido.innerHTML = '';
-            }
-        });
-    </script>
-    <br><br>
-        <label for="_id_pedido">ID Pedido</label>
-        <input type="number" id="_id_pedido" name="_id_pedido" readonly><br><br>
-
-        <label for="seguimento">Seguimento</label>
-        <input type="text" id="seguimento" name="seguimento" required></input><br><br>
-
-        <label for="titulo_pedido">Título do Pedido</label>
-        <input type="text" id="titulo_pedido" name="titulo_pedido" required><br><br>
-
-        <label for="data_reservada">Data Reservada</label>
-        <input type="date" id="data_reservada" name="data_reservada" required><br><br>
-
-        <label for="descricao_pedido">Descrição do Pedido (Objeto do Contrato)</label>
-
-        <textarea id="descricao_pedido" name="descricao_pedido" rows="10" required></textarea><br><br>
-
-        <label for="participantes">Participantes</label>
-        <input type="text" id="participantes" name="participantes"><br><br>
-
-        <label for="observacoes">Observações</label>
-        <textarea id="observacoes" name="observacoes" rows="4"></textarea><br><br>
-
-        <label for="numero_convidados">Número de Convidados</label>
-        <input type="number" id="numero_convidados" name="numero_convidados" required><br><br>
-
-        <label for="horario_convite">Horário do Convite</label>
-        <input type="time" id="horario_convite" name="horario_convite" required><br><br>
-
-        <label for="horario_inicio">Horário de Início</label>
-        <input type="time" id="horario_inicio" name="horario_inicio" required><br><br>
-
-        <h3>Informações Financeiras</h3>
-
-        <label for="valor_original">Valor Original</label>
-        <input type="number" id="valor_original" name="valor_original" step="0.01" required><br><br>
-
-        <label for="valor_desconto">Valor Desconto</label>
-        <input type="number" id="valor_desconto" name="valor_desconto" step="0.01"><br><br>
-
-        <label for="valor_total">Valor Total</label>
-        <input type="number" id="valor_total" name="valor_total" step="0.01" required><br><br>
-
-        <label for="forma_pagamento">Forma de Pagamento</label>
-        <select id="forma_pagamento" name="forma_pagamento" required>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="cartao">Cartão</option>
-            <option value="pix">PIX</option>
-            <option value="transferencia">Transferência</option>
-        </select><br><br>
-
-        <label for="numero_pagamentos">Número de Pagamentos (entrada + parcelas)</label>
-        <input type="number" id="numero_pagamentos" name="numero_pagamentos" required><br><br>
-
-        <label for="valor_pagamento_1">Valor do Primeiro Pagamento (entrada)</label>
-        <input type="number" id="valor_pagamento_1" name="valor_pagamento_1" step="0.01"><br><br>
-
-        <label for="data_pagamento_1">Data do Primeiro Pagamento</label>
-        <input type="date" id="data_pagamento_1" name="data_pagamento_1"><br><br>
-
-        <label for="vencimento_mensal">Data do 1º Vencimento Mensal</label>
-        <input type="date" id="vencimento_mensal" name="vencimento_mensal" required><br><br>
-
-        <label for="reserva_equipe">Reserva de Equipe</label>
-        <textarea id="reserva_equipe" name="reserva_equipe" rows="4"></textarea><br><br>
-
-        <label for="estimativa_custo">Estimativa de Custo</label>
-        <input type="number" id="estimativa_custo" name="estimativa_custo" step="0.01"><br><br>
-        <!-- Fim dos dados do pedido -->
-
-    <!-- -->
-        <label for="modelo_contrato">Selecione o modelo de contrato</label>
-        <select id="modelo_contrato" name="modelo_contrato" required>
-            <option value="">Selecione um modelo</option>
-            <?php
-                $pdo = new PDO("mysql:host=localhost;dbname=crmx", "root", "");
-                
-                $stmt = $pdo->prepare("SELECT id_modelo, nome_modelo FROM modelos_contratos ORDER BY nome_modelo");
-                $stmt->execute();
-                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($res as $modelo) {
-                    echo '<option value="' . htmlspecialchars($modelo['id_modelo']) . '">ID: ' . htmlspecialchars($modelo['id_modelo']) . " - "  . htmlspecialchars($modelo['nome_modelo']) . '</option>';
                 }
-            ?>
+            });
+            </script>
+        
+        <!-- ####### -->
+
+        <input type="submit" id="btnAtualizarContato" value="Atualizar Contato"><br><br>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            //const formContato = document.getElementById('formContato'); // certifique-se de que o form tem esse id
+            const btnAtualizar = document.getElementById('btnAtualizarContato');
+
+            formContato.addEventListener('submit', function (e) {
+                if (document.activeElement === btnAtualizar) {
+                    e.preventDefault();
+
+                    const formData = new FormData(formContato);
+
+                    // Verificação opcional no console
+                    console.log('Nome:', formContato.nome_completo.value);
+                    console.log('RG:', formContato.rg.value);
+                    console.log('CPF:', formContato.cpf.value);
+                    console.log('tipo_contato:', formContato.tipo_contato.value);
+
+                    // Adiciona o campo '_id_contato' (caso ainda não esteja no form)
+                    const idContato = document.getElementById('_id_contato')?.value;
+                    if (idContato) {
+                        formData.set('_id_contato', idContato);
+                    }
+
+                    fetch('api/apiUpdate/apiUpdateContato.php', {
+                        method: 'POST',
+                        body: formData // NÃO definir Content-Type aqui!
+                    })
+                    .then(resp => resp.json())
+                    .then(json => {
+                        if (json.status === 'sucesso') {
+                            alert('Contato atualizado com sucesso!');
+                            // formContato.reset(); // Se quiser limpar o formulário
+                        } else {
+                            alert('Erro ao atualizar Contato: ' + (json.mensagem || 'Erro desconhecido'));
+                        }
+                    })
+                    .catch(err => {
+                        alert('Erro na requisição: ' + err);
+                    });
+                }
+            });
+        });
+        </script>
+
+        
+        <!-- ####### -->
+
+
+        <input type="button" id="btnDeletarContato" value="Deletar Contato"><br><br>
+            <script>
+            // Seleciona o botão de deletar
+            const btnDeletar = document.getElementById('btnDeletarContato');
             
-        </select><br><br>
+            btnDeletar.addEventListener('click', function() {
+                const idContato = document.getElementById('_id_contato').value;
+            
+                if (!idContato) {
+                    alert('Selecione um contato para deletar.');
+                    return;
+                }
+            
+                if (!confirm('Tem certeza que deseja deletar este contato? Esta ação não pode ser desfeita.')) {
+                    return;
+                }
+            
+                const formData = new FormData();
+                formData.append('_id_contato', idContato);
+            
+                console.log('Antes do fetch');
+                fetch('api/apiDelete/apiDeleteContato.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(resp => resp.json())
+                .then(json => {
+                    console.log(json); // Verificar o retorno
+                    if (json.status === 'sucesso') {
+                        alert('Contato deletado com sucesso!');
+                        document.querySelector('form').reset();
+                    } else {
+                        alert('Erro ao deletar Contato: ' + (json.mensagem || 'Erro desconhecido'));
+                    }
+                })
+                .catch(err => {
+                    console.error(err); // Adicione isso para verificar o erro
+                    alert('Erro na requisição: ' + err);
+                });
+            });
+            </script>
+
+        <!-- ######## -->
 
         <input type="reset" value="Limpar Campos"><br><br>
-        <input type="submit" value="Preencher Contrato"><br><br>
 
 
     </form>
