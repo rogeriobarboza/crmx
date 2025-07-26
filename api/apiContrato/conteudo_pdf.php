@@ -1,6 +1,10 @@
 <?php
-            $pdo = new PDO("mysql:host=localhost;dbname=crmx", "root", "");
-            $idModelo = $modelo_contrato;
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/projetos/crmx/db_conn/dbConn.php";
+    $conn = new dbConn();
+    $pdo = $conn->connect();
+
+
+            $idModelo = $idModelo_contrato;
 
             // Query modelo de contrato
             $modelo = $pdo->prepare("SELECT * FROM modelos_contratos WHERE id_modelo = ?");
@@ -11,9 +15,13 @@
             $id_modelo = $m['id_modelo'];
             $nome_modelo = $m['nome_modelo'];
             
-            // Substituição de Strings - verifica se o nome do modelo contém "Denise" e substitui por "Rogerio"
+            // Substituição de Strings #################################
+            // verifica se o nome do modelo contém "Denise" e substitui por "Rogerio"
             $texto = $m['nome_modelo'];
             $nome_modelo = str_ireplace('Denise', 'Rogerio', $texto);
+
+            // ##########################################################
+
 
             // Query cláusulas do modelo
             $clausulas = $pdo->prepare("
@@ -68,16 +76,30 @@
                     font-size: 11pt;}
             
                 @page {
-                    margin: 125px 50px;
+                    margin: 120px 50px 60px 50px; /* Margens superior e inferior reduzidas para mais espaço */
                 }
 
                 body {
                     counter-reset: page;
                 }
 
+                h2 {
+                    margin-top: 20px;
+                    margin-bottom: 0px;
+                }
+                
+                h3 {
+                    margin-top: 10px;
+                    margin-bottom: 0px;
+                }
+
+                p {
+                    margin-top: 0px;
+                }
+
                 header {
                     position: fixed;
-                    top: -100px;
+                    top: -100px; /* Ajustado para a nova margem superior de 100px */
                     left: 0;
                     right: 0;
                     height: 80px;
@@ -124,7 +146,7 @@
 
                 footer {
                     position: fixed;
-                    bottom: -125px;
+                    bottom: -60px; /* Ajustado para corresponder à nova margem inferior de 60px */
                     left: 0;
                     right: 0;
                     height: 60px;
@@ -141,11 +163,12 @@
                 }
 
                 #descricao-pedido {
-                    padding-left: 20px; /* Adiciona identação */
+                    padding-left: 0px; /* Adiciona identação */
+                    margin-top: 0px;
                 }
                 
                 #descricao-pedido p {
-                    margin: 5px 0;
+                    margin: 10px 0;
                 }
 
                 /* Identação clausulas*/
@@ -154,6 +177,8 @@
                 }
                 .item {
                     margin-left: 60px;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
                 }
             </style>
         </head>

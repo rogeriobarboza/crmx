@@ -55,7 +55,7 @@ switch ($url) {
         break;
     
     case 'gerar-contrato':
-        require_once '../api/mContrato/gerar_pdf.php';
+        require_once '../api/apiContrato/gerar_pdf.php';
         break;
 
     case 'form-contrato':

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/db_conn/dbConn.php';
 //require_once '../../db_conn/dbConn.php';
 //$DB = new dbConn();
 //$conn = $DB->connect();
@@ -284,7 +284,7 @@ try {
         $reserva_equipe,
         $estimativa_custo) {
         
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/db_conn/dbConn.php';
         //require_once '../../db_conn/dbConn.php';
         $DB = new dbConn();
         $conn = $DB->connect();
@@ -381,7 +381,7 @@ try {
 
     // Função para pegar o "id do pedido" após o cadastro do pedido
     function getIdPedido($_id_contato) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/db_conn/dbConn.php';
         //require_once '../../db_conn/dbConn.php';
         $DB = new dbConn();
         $conn = $DB->connect();
@@ -411,7 +411,7 @@ try {
         $contato,
         $metodos_contato,
         $info_adicional) {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/db_conn/dbConn.php';
             //require_once '../../db_conn/dbConn.php';
             $DB = new dbConn();
             $conn = $DB->connect();
@@ -477,7 +477,7 @@ try {
 
 
     function metodosContato($_id_contato) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/db_conn/dbConn.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/db_conn/dbConn.php';
         //require_once '../../db_conn/dbConn.php';
         $DB = new dbConn();
         $conn = $DB->connect();

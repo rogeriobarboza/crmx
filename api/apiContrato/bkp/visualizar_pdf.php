@@ -8,7 +8,7 @@
 </head>
             <body>
                 <?php
-                //include $_SERVER['DOCUMENT_ROOT'] . '/projetos/crm/public/navLinks.php';
+                //include $_SERVER['DOCUMENT_ROOT'] . '/projetos/crmx/public/navLinks.php';
                 include_once 'gerar_pdf.php';
                 ?>
                 <br><br>HTML da Página de visualização do PDF
