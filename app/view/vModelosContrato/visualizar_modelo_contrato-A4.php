@@ -46,7 +46,7 @@
   </style>
 </head>
 <body>
-  <?php include '../public/navLinks.php'; ?>
+  <?php include ROOT_PATH . 'public/navLinks.php'; ?>
   
   <div class="form-topo">
     <label for="modelo">Selecione o modelo:</label>
@@ -59,8 +59,9 @@
     <div id="conteudo_modelo"></div>
   </div>
   <script>
+    const BASE_URL = '<?php echo URL; ?>';
     // Carrega a lista de modelos
-    fetch('api/apiRead/buscar_modelos.php')
+    fetch(BASE_URL + 'api/apiRead/buscar_modelos.php')
       .then(r => r.json())
       .then(data => {
         const select = document.getElementById('modelo');
@@ -75,7 +76,7 @@
     // Carrega o conteúdo do modelo
     function carregarModelo(id) {
       if (!id) return;
-      fetch('api/apiRead/carregar_modelo.php?id=' + id)
+      fetch(BASE_URL + 'api/apiRead/carregar_modelo.php?id=' + id)
         .then(r => r.json())
         .then(data => {
           document.getElementById('titulo_modelo').textContent = data.nome_modelo;

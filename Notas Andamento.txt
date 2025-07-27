@@ -1,0 +1,20 @@
+# CAMINHO ABSOLUTO E URL - OBJETIVO CENTRALIZAR A CONFIGURAÇÃO #
+
+27/07/2025 - início daimplementação de caminhos absoluto com a constante "ROOT_PATH" e caminho url com a constante "URL":
+
+<?php
+
+define('ROOT_PATH', __DIR__.'/../');
+
+define('URL', 'http://localhost/projetos/crmx/');
+
+Implementação realizada em:
+config/config.php
+public/index.php
+public/navLinks.php
+
+Continuar em: C:\wamp64\www\projetos\crmx\app\view\vContato\lista-contatos.php
+
+# SEPARAR LÓGICA DE APIs #
+
+# IMPLEMENTAR TRY CATCH E FILTROS DE SEGURANÇA #v
